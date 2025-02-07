@@ -1,4 +1,78 @@
 .footer{
-    text-align: center;
-    height: 9vh ;
+
+  width: 100%;
+  text-align: center;
+  height: 9vh ;
+  background-color: black;
+  color: #7A7A7A;
+  .content{
+    width: 80%;
+    h3{
+        font-family: "Cinzel Decorative", serif;
+
+    }
+    .icons{
+        gap: 20px;
+        button{
+            color: #7A7A7A;
+            background-color: transparent;
+            border: none;
+            font-size: 20px;
+        }
+    }
+  }
+}
+@media (max-width: 480px) {
+
+    .footer{
+
+       
+        .content{
+            width: 95%;
+            gap: 10px;
+          h3{
+      
+            font-size: 15px;
+          }
+          p{
+            font-size: 15px;
+
+          }
+          .icons{
+            gap: 12px;
+
+              button{
+                
+                  font-size: 16px;
+              }
+          }
+        }
+      }
+}
+@media screen and (min-width: 480px) and (max-width: 768px) {
+
+    .footer{
+
+       
+        .content{
+            width: 80%;
+            gap: 10px;
+          h3{
+      
+            font-size: 15px;
+          }
+          p{
+            font-size: 15px;
+
+          }
+          .icons{
+            gap: 12px;
+
+              button{
+                
+                  font-size: 16px;
+              }
+          }
+        }
+      }
 }

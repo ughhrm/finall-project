@@ -8,14 +8,14 @@ const Address = () => {
     <div className={`${styles.section} row`}>
         <div className={`${styles.content} row`}>
 
-            <div className={`${styles.mapBox} column`}>
+            <div className={`${styles.mapBox} column-bet`}>
                 <h5>Ünvan</h5>
                 <div className={`${styles.mapImg} row`}>
                 <img src={image} alt="Example" />
                 </div>
             </div>
             <div className={`${styles.cart} column-bet`}>
-                <h5>Menu</h5>
+                <h5 >Menu</h5>
                 <div className={`${styles.info} column-bet`}>
                     <p>Haqqımızda</p>
                     <p>Təlimlər</p>
