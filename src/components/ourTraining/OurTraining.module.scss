@@ -1,0 +1,111 @@
+.section{
+    width: 100%;
+    height: 60vh;
+    
+    .content{
+        height: 95%;
+        width: 90%;
+        flex-wrap: wrap;
+        gap: 10px;
+
+
+        .cart{
+            width: 32%;
+            height: 100px;
+            gap: 20px;
+            .imgBox{
+                padding: 7px;
+                background-color: #00427C;
+                border-radius: 50%;
+                img{
+                    height: 60px;
+                    width: 60px;
+                    padding: 10px;
+                    
+                }
+            }
+         
+            .info{
+                gap: 7px;
+                width: 200px;
+                align-items: start;
+        
+                h4{
+                    font-size: 20px;
+                    font-weight: 400;
+                }
+                p{
+                    color: gray;
+                    font-size: 14px;
+                    font-weight: 400;
+
+                }
+
+            }
+        }
+
+    }
+}
+
+
+@media (max-width: 768px) {
+    .section{
+        height: auto;
+        .content{
+            padding: 10px 0;
+            .cart{
+                width: 48%;
+                .imgBox{
+              
+                    img{
+                        height: 45px;
+                        width: 45px;
+                        
+                    }
+                }
+                .info{
+                    width: 70%;
+                }
+
+            }
+        }
+
+    } 
+}
+@media (max-width: 480px) {
+  
+    .section{
+        height: auto;
+        .content{
+            padding: 10px 0;
+            .cart{
+                width: 90%;
+                height: 85px;
+                justify-content: start;
+                .imgBox{
+              
+                    img{
+                        height: 45px;
+                        width: 45px;
+                        
+                    }
+                }
+                .info{
+                    width: 70%;
+                    h4{
+                        font-size: 18px;
+                        font-weight: 400;
+                    }
+                    p{
+                        color: gray;
+                        font-size: 12px;
+                        font-weight: 400;
+    
+                    }
+                }
+
+            }
+        }
+
+    }
+}

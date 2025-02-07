@@ -1,0 +1,42 @@
+.section{
+    width: 100%;
+    height: 60vh;
+    .content{
+        height: 50%;
+        width: 90%;
+        gap: 10px;
+        .mapBox{
+            height: 100%;
+            width: 30%;
+            background-color: red;
+            align-items: start;
+
+            .mapImg{
+                width: 100%;
+                height: 70%;
+
+                img{
+                    
+                    height: 100%;
+                    width: 100%;
+                }
+            }
+
+        }
+        .cart{
+
+            height: 60%;
+            width: 40%;
+            align-items: start;
+            background-color: aqua;
+
+            .info{
+                align-items: start;
+
+                width: 80%;
+                background-color: red;
+            }
+
+        }
+    }
+}
