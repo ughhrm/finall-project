@@ -1,0 +1,120 @@
+.section{
+    width: 100%;
+    height: 60vh;
+    background-color: #DCDCDC;
+    .content{
+        width: 100%;
+        height: 90%;
+        .cart{
+            width: 19%;
+            height: 80%;
+            filter: grayscale(100%);
+
+            .topImgBox{
+                width: 100%;
+                height: 40%;
+
+                img{
+                    width: 60%;
+                    height: 45%;
+
+                }
+            }
+            .bottomImgBox{
+                width: 100%;
+                height: 40%;
+                img{
+                    width: 60%;
+                    height: 35%;
+                }
+            }
+
+        }
+    }
+}
+@media (max-width: 480px) {
+    .section{
+        width: 100%;
+        height: auto;
+        .content{
+            width: 100%;
+            height: 90%;
+            flex-wrap: wrap;
+            gap: 10px;
+            .cart{
+                width: 90%;
+                height: 80%;
+                filter: grayscale(100%);
+    
+                .topImgBox{
+                    width: 100%;
+                    height: 40%;
+                    padding: 25px 0 ;
+
+    
+                    img{
+                        width: 60%;
+                        height: 40%;
+    
+                    }
+                }
+                .bottomImgBox{
+                    width: 100%;
+                    height: 40%;
+                    padding: 25px 0 ;
+
+                    img{
+                        width: 60%;
+                        height: 40%;
+                    }
+                }
+    
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 480px) and (max-width: 768px) {
+    .section{
+        width: 100%;
+        height: auto;
+        padding: 20px 0;
+        .content{
+            width: 100%;
+            height: 90%;
+            flex-wrap: wrap;
+            gap: 10px;
+            .cart{
+                width: 90%;
+                height: 80%;
+                filter: grayscale(100%);
+    
+                flex-direction: row;
+                .topImgBox{
+                    width: 100%;
+                    height: 40%;
+                    padding: 25px 0 ;
+
+    
+                    img{
+                        width: 60%;
+                        height: 40%;
+    
+                    }
+                }
+                .bottomImgBox{
+                    width: 100%;
+                    height: 40%;
+                    padding: 25px 0 ;
+
+                    img{
+                        width: 60%;
+                        height: 40%;
+                    }
+                }
+    
+            }
+        }
+    }
+}
+

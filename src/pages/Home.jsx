@@ -6,6 +6,7 @@ import Title from '../components/title/Title'
 import SuccessMetrics from '../components/successMetrics/SuccessMetrics'
 import Address from '../components/address/Address'
 import Footer from '../components/footer/Footer'
+import CareerDestinations from '../components/careerDestinations/CareerDestinations'
 
 const Home = () => {
   return (
@@ -15,6 +16,7 @@ const Home = () => {
         <Title  p={"Təlimlərimiz"} /> 
         <OurTraining/>
         <SuccessMetrics/>
+        <CareerDestinations/>
         <Address/>
          
         <Footer/>
