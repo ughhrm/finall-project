@@ -3,12 +3,12 @@ import styles from './LoginSection.module.scss';
 import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { userLoginThunk } from '../../redux/slice/userLoginSlice';
+import { userAuthLoginThunk } from '../../redux/slice/userAuthSlice';
 
 const LoginSection = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userLogin, error, loading } = useSelector((state) => state.userLogin);
+  const { userAuth, error, loading } = useSelector((state) => state.userAuth);
   const [loginSuccess, setLoginSuccess] = useState(false);
 
   const formik = useFormik({
@@ -16,17 +16,24 @@ const LoginSection = () => {
       email: '',
       password: '',
     },
-    onSubmit: (values) => {
-      dispatch(userLoginThunk(values));
+    onSubmit: async (values, { resetForm }) => {
+      const action = await dispatch(userAuthLoginThunk(values));
+    
+      if (userAuthLoginThunk.fulfilled.match(action)) {
+        resetForm();
+      }
     },
   });
+  
+  
 
   useEffect(() => {
-    if (userLogin) {
+
+    if (userAuth) {
       setLoginSuccess(true);
-      navigate('/dashboard');
+      navigate('/student-profile');
     }
-  }, [userLogin, navigate]);
+  }, [userAuth, navigate]);
 
   useEffect(() => {
     if (error) {
