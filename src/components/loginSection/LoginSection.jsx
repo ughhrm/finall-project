@@ -8,7 +8,7 @@ import { userAuthLoginThunk } from '../../redux/slice/userAuthSlice';
 const LoginSection = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { userAuth, error, loading } = useSelector((state) => state.userAuth);
+  const { error, loading } = useSelector((state) => state.userAuth);
   const [loginSuccess, setLoginSuccess] = useState(false);
 
   const formik = useFormik({
@@ -21,19 +21,13 @@ const LoginSection = () => {
     
       if (userAuthLoginThunk.fulfilled.match(action)) {
         resetForm();
+        navigate("/student-profile")
       }
     },
   });
   
   
 
-  useEffect(() => {
-
-    if (userAuth) {
-      setLoginSuccess(true);
-      navigate('/student-profile');
-    }
-  }, [userAuth, navigate]);
 
   useEffect(() => {
     if (error) {
@@ -54,7 +48,7 @@ const LoginSection = () => {
               id="email"
               name="email"
               type="email"
-              placeholder="İstifadəçi adı"
+              placeholder="Email"
               onChange={formik.handleChange}
               value={formik.values.email}
             />
@@ -65,7 +59,7 @@ const LoginSection = () => {
               id="password"
               name="password"
               type="password"
-              placeholder="İstifadəçi adı"
+              placeholder="Parol"
               onChange={formik.handleChange}
               value={formik.values.password}
             />
@@ -80,7 +74,7 @@ const LoginSection = () => {
         </form>
         <div className={`${styles.singupBtnBox} column-bet`}>
           <p>Və ya qeydiyyatdan keçin</p>
-          <button>Qeydiyyatdan keçin</button>
+          <button onClick={()=>navigate("/singup")}>Qeydiyyatdan keçin</button>
         </div>
         {loginSuccess && !loading && !error && <p>Giriş uğurla tamamlandi!</p>}
       </div>

@@ -4,13 +4,14 @@ import { useDispatch } from 'react-redux'
 import { userAuthLogOutThunk } from '../../redux/slice/userAuthSlice'
 import { useNavigate } from 'react-router-dom'
 
+
 const StudentProfileSection = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
   const handleLogout = async() => {
    const action = await dispatch(userAuthLogOutThunk())
    if(userAuthLogOutThunk.fulfilled.match(action)){
-    navigate('/login')  
+    navigate('/login')
    }
   }
   
@@ -40,12 +41,10 @@ const StudentProfileSection = () => {
                 <div>
                   <p>Programlasdirma dili:</p>
                   <h3>Backend</h3>
-                
                 </div>
                 <div>
                   <p>Telefon:</p>
                   <h3>055-990-57-48</h3>
-                
                 </div> 
               </div>
               <div className={`${styles.rightBox} column-bet`}>

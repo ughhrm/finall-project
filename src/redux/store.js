@@ -3,7 +3,7 @@ import  userAuthSlice  from "./slice/userAuthSlice";
 
 export const store =configureStore({
     reducer:{
-        userAuth :userAuthSlice
+        userAuth :userAuthSlice,
 
     }
 })
