@@ -7,14 +7,18 @@ import SuccessMetrics from '../components/successMetrics/SuccessMetrics'
 import Address from '../components/address/Address'
 import Footer from '../components/footer/Footer'
 import CareerDestinations from '../components/careerDestinations/CareerDestinations'
+import PreCoding from '../components/preCoding/PreCoding'
+import EmptySection from '../components/emptySection/EmptySection'
 
 const Home = () => {
   return (
     <div>
         <Header/>
         <VideoSection/>
+        <EmptySection/>
         <Title  p={"Təlimlərimiz"} /> 
         <OurTraining/>
+        <PreCoding/>
         <SuccessMetrics/>
         <CareerDestinations/>
         <Address/>

@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 const SingUpSection = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {  error, loading } = useSelector((state) => state.userAuth);
+  const {  loading } = useSelector((state) => state.userAuth);
 
   const formik = useFormik({
     initialValues: {
@@ -23,7 +23,7 @@ const SingUpSection = () => {
       const action = await dispatch(userAuthSignUpThunk(values));
       if (userAuthSignUpThunk.fulfilled.match(action)) {
         navigate("/login")
-      }
+      } 
     },
   });
   return (
@@ -31,7 +31,6 @@ const SingUpSection = () => {
       <div className={`${styles.content} column-bet`}>
         <form className={`${styles.form} column-bet`} onSubmit={formik.handleSubmit}>
           <h4>Qeydiyattan kec</h4>
-          {error && <p style={{ color: 'red' }}>{error}</p>}
           <div className={`${styles.bigBox} row-bet`}>
             <div className={`${styles.leftBox} column-bet`}>
               <div className={`${styles.inputBox} column`}>

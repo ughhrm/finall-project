@@ -11,7 +11,7 @@ const StudentProfileSection = () => {
   const handleLogout = async() => {
    const action = await dispatch(userAuthLogOutThunk())
    if(userAuthLogOutThunk.fulfilled.match(action)){
-    navigate('/login')
+    navigate('/')
    }
   }
   

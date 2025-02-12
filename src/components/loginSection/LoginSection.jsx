@@ -3,7 +3,7 @@ import styles from './LoginSection.module.scss';
 import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { userAuthLoginThunk } from '../../redux/slice/userAuthSlice';
+import { resetError, userAuthLoginThunk } from '../../redux/slice/userAuthSlice';
 
 const LoginSection = () => {
   const dispatch = useDispatch();
@@ -23,17 +23,17 @@ const LoginSection = () => {
         resetForm();
         navigate("/student-profile")
       }
+
     },
   });
   
-  
-
-
   useEffect(() => {
-    if (error) {
-      setLoginSuccess(false); 
-    }
-  }, [error]);
+        dispatch(resetError()); 
+    }, [dispatch]);
+
+
+
+
 
   return (
     <div className={`${styles.section} column`}>
@@ -68,7 +68,7 @@ const LoginSection = () => {
             </div>
           </div>
 
-          <button type="submit" disabled={loading}>
+          <button type="submit" >
             {loading ? 'Yüklənir...' : 'Daxil olun'}
           </button>
         </form>

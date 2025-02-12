@@ -9,19 +9,18 @@ const ProfileTitle = () => {
   useEffect(()=>{
     dispatch(getUserAuthThunk())
   },[dispatch])
+ 
   return (
     <div className={`${styles.section} row`}>
         <div className={`${styles.content} row-bet`}>
             
+        {userAuth ? (
         
-    {Array.isArray(userAuth) ? (
-      userAuth.map(item => (
-        <div key={item.id}>{item.name}</div>
-      ))
-    ) : (
-      <p>No data available</p>
-    )}
-  
+          <p> {userAuth.email}</p>
+
+      ) : (
+        <p>İstifadəçi məlumatları tapılmadı.</p>
+      )}
 
             <h3>Alpha Academy</h3>
           
