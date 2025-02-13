@@ -1,9 +1,10 @@
 .header{
     width: 100%;
     background-color: #00427C;
-    height: 10vh;
-    position: fixed;
-    z-index: 1000; 
+    height: 11vh;
+    top: 0px;
+    position: sticky;
+
    
     .content{
         width: 90%;

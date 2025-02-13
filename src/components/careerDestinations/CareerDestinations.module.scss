@@ -1,6 +1,6 @@
 .section{
     width: 100%;
-    height: 60vh;
+    height: 75vh;
     background-color: #DCDCDC;
     .content{
         width: 100%;
@@ -8,7 +8,6 @@
         .cart{
             width: 19%;
             height: 80%;
-            filter: grayscale(100%);
 
             .topImgBox{
                 width: 100%;
@@ -44,7 +43,6 @@
             .cart{
                 width: 90%;
                 height: 80%;
-                filter: grayscale(100%);
     
                 .topImgBox{
                     width: 100%;
@@ -87,7 +85,6 @@
             .cart{
                 width: 90%;
                 height: 80%;
-                filter: grayscale(100%);
     
                 flex-direction: row;
                 .topImgBox{

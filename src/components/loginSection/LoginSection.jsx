@@ -4,6 +4,9 @@ import { useFormik } from 'formik';
 import { Link, useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { resetError, userAuthLoginThunk } from '../../redux/slice/userAuthSlice';
+import { IoIosEyeOff } from "react-icons/io";
+import { FaEye } from "react-icons/fa";
+
 
 const LoginSection = () => {
   const dispatch = useDispatch();
@@ -18,7 +21,7 @@ const LoginSection = () => {
     },
     onSubmit: async (values, { resetForm }) => {
       const action = await dispatch(userAuthLoginThunk(values));
-    
+
       if (userAuthLoginThunk.fulfilled.match(action)) {
         resetForm();
         navigate("/student-profile")
@@ -26,10 +29,12 @@ const LoginSection = () => {
 
     },
   });
-  
+
   useEffect(() => {
-        dispatch(resetError()); 
-    }, [dispatch]);
+    dispatch(resetError());
+  }, [dispatch]);
+
+  const [showPassword, setShowPassword] = useState(false);
 
 
 
@@ -48,33 +53,42 @@ const LoginSection = () => {
               id="email"
               name="email"
               type="email"
-              placeholder="Email"
+              placeholder="Cavabınız"
               onChange={formik.handleChange}
               value={formik.values.email}
             />
           </div>
           <div className={`${styles.inputBox} column`}>
             <label htmlFor="password">Parol</label>
-            <input
-              id="password"
-              name="password"
-              type="password"
-              placeholder="Parol"
-              onChange={formik.handleChange}
-              value={formik.values.password}
-            />
+            <div className={`${styles.passwordInputBox} row-bet`}>
+              <input
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Cavabınız"
+                onChange={formik.handleChange}
+                value={formik.values.password}
+              />
+              <button
+                type="button"
+                onMouseDown={() => setShowPassword(true)}  // Basanda açılır
+                onMouseUp={() => setShowPassword(false)}  // Buraxanda bağlanır
+                onMouseLeave={() => setShowPassword(false)}            >
+                {showPassword ? <IoIosEyeOff /> : <FaEye />}
+              </button>
+            </div>
             <div className={styles.forgotPassword}>
               <Link>Parolu unutdunuz?</Link>
             </div>
           </div>
 
-          <button type="submit" >
+          <button className={`${styles.submit} column`} type="submit" >
             {loading ? 'Yüklənir...' : 'Daxil olun'}
           </button>
         </form>
         <div className={`${styles.singupBtnBox} column-bet`}>
           <p>Və ya qeydiyyatdan keçin</p>
-          <button onClick={()=>navigate("/singup")}>Qeydiyyatdan keçin</button>
+          <button onClick={() => navigate("/singup")}>Qeydiyyatdan keçin</button>
         </div>
         {loginSuccess && !loading && !error && <p>Giriş uğurla tamamlandi!</p>}
       </div>

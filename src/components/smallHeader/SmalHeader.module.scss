@@ -1,0 +1,39 @@
+.section{
+    width: 100%;
+    height: 29px;
+    background-color: white;
+    
+
+    .content{
+        width: 85%;
+        .address{
+            button{
+                background-color: transparent;
+                border: none;
+                padding: 0 5px;
+                border-right: 1px solid black;
+
+            }
+        }
+        .icons{
+            button{
+                background-color: transparent;
+                border: none;
+                padding: 0 10px;
+                border-right: 1px solid black;
+                font-size: 17px;
+            }
+            
+
+        }
+        
+
+    }
+
+}
+
+@media (max-width: 480px) {
+    .section{
+        display: none;
+    }
+}

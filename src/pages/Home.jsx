@@ -9,10 +9,12 @@ import Footer from '../components/footer/Footer'
 import CareerDestinations from '../components/careerDestinations/CareerDestinations'
 import PreCoding from '../components/preCoding/PreCoding'
 import EmptySection from '../components/emptySection/EmptySection'
+import SmalHeader from '../components/smallHeader/SmalHeader'
 
 const Home = () => {
   return (
     <div>
+      <SmalHeader/>
         <Header/>
         <VideoSection/>
         <EmptySection/>

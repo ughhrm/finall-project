@@ -1,9 +1,12 @@
 import React from 'react'
 import styles from './CareerDestinations.module.scss'
+import Title from '../title/Title'
 
 const CareerDestinations = () => {
   return (
-    <div className={`${styles.section} row`}>
+    <div className={`${styles.section} column`}>
+        
+        <Title  p={"Tələbələrimiz harda çalışır?"} /> 
         <div className={`${styles.content} row`}>
             <div className={`${styles.cart} column`}>
                 <div className={`${styles.topImgBox} row`}><img src="https://matrixacademy.az/images/career_slider/1_pasha.svg" alt="" /></div>

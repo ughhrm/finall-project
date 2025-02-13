@@ -16,9 +16,15 @@ export const userAuthLoginThunk = createAsyncThunk("user/login", async (userData
     }
 });
 
-export const userAuthSignUpThunk = createAsyncThunk("user/signup",async(userData)=>{
+export const userAuthSignUpThunk = createAsyncThunk("user/signup",async(userData,thunkAPI)=>{
+    
+   try {
     const res = await axios.post("http://localhost:5050/user/singup",userData);
     return res.data
+   } catch (error) {
+    return thunkAPI.rejectWithValue(error.response?.data?.message)
+    
+   }
 })
 export const userAuthLogOutThunk = createAsyncThunk("user/logout", async () => {
     await axios.post("http://localhost:5050/user/logout", {}, { withCredentials: true });
@@ -27,7 +33,7 @@ export const userAuthLogOutThunk = createAsyncThunk("user/logout", async () => {
 export const getUserAuthThunk = createAsyncThunk("user/get", async (_, thunkAPI) => {
     try {
         const token = localStorage.getItem("token");
-        console.log("Token lokal saxlama:", token); // Token-i konsolda çap edin
+        console.log("Token lokal saxlama:", token); 
 
         if (!token) {
             return thunkAPI.rejectWithValue("Token tapılmadı. Zəhmət olmasa yenidən daxil olun.");

@@ -3,11 +3,15 @@ import {  userAuthSignUpThunk } from '../../redux/slice/userAuthSlice';
 import { useFormik } from 'formik';
 import {  useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { IoIosEyeOff } from "react-icons/io";
+import { FaEye } from "react-icons/fa";
+import { useState } from 'react';
+
 
 const SingUpSection = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const {  loading } = useSelector((state) => state.userAuth);
+  const { error, loading } = useSelector((state) => state.userAuth);
 
   const formik = useFormik({
     initialValues: {
@@ -23,14 +27,18 @@ const SingUpSection = () => {
       const action = await dispatch(userAuthSignUpThunk(values));
       if (userAuthSignUpThunk.fulfilled.match(action)) {
         navigate("/login")
-      } 
+      }
     },
   });
+    const [showPassword, setShowPassword] = useState(false);
+  
   return (
     <div className={`${styles.section} column`}>
       <div className={`${styles.content} column-bet`}>
         <form className={`${styles.form} column-bet`} onSubmit={formik.handleSubmit}>
           <h4>Qeydiyattan kec</h4>
+          {error && <p style={{ color: 'red' }}>{error}</p>}
+
           <div className={`${styles.bigBox} row-bet`}>
             <div className={`${styles.leftBox} column-bet`}>
               <div className={`${styles.inputBox} column`}>
@@ -40,7 +48,7 @@ const SingUpSection = () => {
                   name="name"
                   type="text"
                   required
-                  placeholder="Ad"
+                  placeholder="Cavabınız"
                   onChange={formik.handleChange}
                   value={formik.values.name}
                 />
@@ -51,7 +59,7 @@ const SingUpSection = () => {
                   id="lastName"
                   name="lastName"
                   type="text"
-                  placeholder="Soy Ad"
+                  placeholder="Cavabınız"
                   required
                   onChange={formik.handleChange}
                   value={formik.values.lastName}
@@ -192,7 +200,7 @@ const SingUpSection = () => {
                   id="dateOfBirth"
                   name="dateOfBirth"
                   type="date"
-                  placeholder="mm/dd/yyyy"
+                  placeholder="Cavabınız"
                   onChange={formik.handleChange}
                   required
                   value={formik.values.dateOfBirth}
@@ -204,7 +212,7 @@ const SingUpSection = () => {
                   id="location"
                   name="location"
                   type="text"
-                  placeholder="Yaşadığı Yer"
+                  placeholder="Cavabınız"
                   onChange={formik.handleChange}
                   required
                   value={formik.values.location}
@@ -216,7 +224,7 @@ const SingUpSection = () => {
                   id="email"
                   name="email"
                   type="email"
-                  placeholder="İstifadəçi adı"
+                  placeholder="Cavabınız"
                   onChange={formik.handleChange}
                   required
                   value={formik.values.email}
@@ -224,15 +232,24 @@ const SingUpSection = () => {
               </div>
               <div className={`${styles.inputBox} column`}>
                 <label htmlFor="password">Parol</label>
-                <input
-                  id="password"
-                  name="password"
-                  type="password"
-                  placeholder="İstifadəçi adı"
-                  required
-                  onChange={formik.handleChange}
-                  value={formik.values.password}
-                />
+                <div className={`${styles.passwordInputBox} row-bet`}>
+              <input
+                id="password"
+                name="password"
+                type={showPassword ? "text" : "password"}
+                placeholder="Cavabınız"
+                onChange={formik.handleChange}
+                value={formik.values.password}
+              />
+              <button
+                type="button"
+
+                onMouseDown={() => setShowPassword(true)}  // Basanda açılır
+                onMouseUp={() => setShowPassword(false)}  // Buraxanda bağlanır
+                onMouseLeave={() => setShowPassword(false)}            >
+                {showPassword ? <IoIosEyeOff /> : <FaEye />}
+              </button>
+            </div>
 
               </div>
 
