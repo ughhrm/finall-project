@@ -240,6 +240,7 @@ const SingUpSection = () => {
                 placeholder="Cavabınız"
                 onChange={formik.handleChange}
                 value={formik.values.password}
+                required
               />
               <button
                 type="button"

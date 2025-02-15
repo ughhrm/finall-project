@@ -15,7 +15,7 @@ const Header = () => {
             </div>
             <div className={`${styles.btnBox} row-bet`}>
                 <button>Ev</button>
-                <button>Bildirişlər</button>
+                <button onClick={()=>navigate("admin-singup")}>AdminSingup</button>
                 <button>Tələbə Profili</button>
                 <button className={`${styles.loginBtn}`} onClick={()=>navigate("/login")} >Daxil olun</button>
             </div>

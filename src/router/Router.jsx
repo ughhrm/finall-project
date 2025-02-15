@@ -6,6 +6,8 @@ import AdminPanel from '../pages/AdminPanel'
 import StudentProfile from '../pages/StudentProfile'
 import LoginPage from '../pages/LoginPage'
 import SingUp from '../pages/SingUp'
+import AdminLogin from '../pages/AdminLogin'
+import AdminSignup from '../pages/AdminSignup'
 
 const Router = () => {
     return (
@@ -16,6 +18,9 @@ const Router = () => {
       <Route path='/notifications' element={<Notifications/>}/>
       <Route path='/student-profile' element={<StudentProfile/>}/>
       <Route path='/login' element={<LoginPage/>}/>
+      <Route path='/admin-login' element={<AdminLogin/>}/>
+      <Route path='/singup' element={<SingUp/>}/>
+      <Route path='/admin-singup' element={<AdminSignup/>}/>
       <Route path='/singup' element={<SingUp/>}/>
   </Routes>
   </BrowserRouter>

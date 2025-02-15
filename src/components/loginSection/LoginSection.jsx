@@ -71,10 +71,10 @@ const LoginSection = () => {
               />
               <button
                 type="button"
-                onMouseDown={() => setShowPassword(true)}  // Basanda açılır
-                onMouseUp={() => setShowPassword(false)}  // Buraxanda bağlanır
+                onMouseDown={() => setShowPassword(true)}  
+                onMouseUp={() => setShowPassword(false)}  
                 onMouseLeave={() => setShowPassword(false)}            >
-                {showPassword ? <IoIosEyeOff /> : <FaEye />}
+                {showPassword ? <FaEye /> : <IoIosEyeOff />}
               </button>
             </div>
             <div className={styles.forgotPassword}>
