@@ -1,17 +1,20 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import styles from './AdminSignupSection.module.scss'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useFormik } from 'formik';
 import { FaEye } from "react-icons/fa";
 import { IoIosEyeOff } from "react-icons/io";
+import { adminSignUpThunk, resetError } from '../../redux/slice/adminAuthSlice';
 
 
 
 const AdminSignupSection = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { error, loading } = useSelector((state) => state.userAuth);
+    const { error, loading } = useSelector((state) => state.adminAuth);
+    const [showPassword, setShowPassword] = useState(false);
+    const [showSecretSignup, setShowSecretSignup] = useState(false);
 
 
     const formik = useFormik({
@@ -24,12 +27,22 @@ const AdminSignupSection = () => {
             location: "",
             secretCode:""
         },
-        onSubmit: async (values) => {
+        onSubmit: async (values,{resetForm}) => {
+
+              const action = await dispatch(adminSignUpThunk(values));
+                  if (adminSignUpThunk.fulfilled.match(action)) {
+                    resetForm();
+                    navigate("/admin-login")
+
+                  }
 
         },
+
     });
-    const [showPassword, setShowPassword] = useState(false);
-    const [showSecretSignup, setShowSecretSignup] = useState(false);
+    useEffect(()=>{
+        dispatch(resetError())
+    },[dispatch])
+
 
     return (
         <div className={`${styles.section} column`}>

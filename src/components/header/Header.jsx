@@ -14,7 +14,8 @@ const Header = () => {
                 <h3>Alpha Academy</h3>
             </div>
             <div className={`${styles.btnBox} row-bet`}>
-                <button>Ev</button>
+                <button onClick={()=>navigate("admin-login")
+                }>Admin Login</button>
                 <button onClick={()=>navigate("admin-singup")}>AdminSingup</button>
                 <button>Tələbə Profili</button>
                 <button className={`${styles.loginBtn}`} onClick={()=>navigate("/login")} >Daxil olun</button>

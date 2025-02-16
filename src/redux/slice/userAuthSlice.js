@@ -64,7 +64,7 @@ export const userAuthSlice = createSlice({
     },
     reducers: {
         resetError: (state) => {
-            state.error = null; // səhv mesajını sıfırlayırıq
+            state.error = null; 
         },
     },
 
