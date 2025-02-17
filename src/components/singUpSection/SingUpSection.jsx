@@ -1,17 +1,18 @@
 import styles from './SingUpSection.module.scss'
-import {  userAuthSignUpThunk } from '../../redux/slice/userAuthSlice';
+import { userAuthSignUpThunk } from '../../redux/slice/userAuthSlice';
 import { useFormik } from 'formik';
-import {  useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { IoIosEyeOff } from "react-icons/io";
 import { FaEye } from "react-icons/fa";
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
+import { resetError, signUpStudentandTeacherByAdminThunk } from '../../redux/slice/adminAuthSlice';
 
 
 const SingUpSection = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const { error, loading } = useSelector((state) => state.userAuth);
+  const { error, loading } = useSelector((state) => state.adminAuth);
 
   const formik = useFormik({
     initialValues: {
@@ -21,17 +22,21 @@ const SingUpSection = () => {
       password: '',
       dateOfBirth: '',
       location: '',
-      programmingLanguage: ''
+      programmingLanguage: '',
+      role:''
     },
     onSubmit: async (values) => {
-      const action = await dispatch(userAuthSignUpThunk(values));
-      if (userAuthSignUpThunk.fulfilled.match(action)) {
+      const action = await dispatch(signUpStudentandTeacherByAdminThunk(values));
+      if (signUpStudentandTeacherByAdminThunk.fulfilled.match(action)) {
         navigate("/login")
       }
     },
   });
-    const [showPassword, setShowPassword] = useState(false);
-  
+  useEffect(()=>{
+    dispatch(resetError())
+  },[dispatch])
+  const [showPassword, setShowPassword] = useState(false);
+
   return (
     <div className={`${styles.section} column`}>
       <div className={`${styles.content} column-bet`}>
@@ -65,6 +70,40 @@ const SingUpSection = () => {
                   value={formik.values.lastName}
                 />
               </div>
+              <div className={`${styles.inputBox} ${styles.radio} column`}>
+                <label htmlFor="role">Yeni istifadəçi rolu:</label>
+                <div className={`${styles.radioImputBigBox} ${styles.role} row-bet`}>
+
+                  <div className={`${styles.radioImput} row`}>
+                    <input
+                      type="radio"
+                      id="teacher"
+                      name="role"
+                      required
+                      onChange={formik.handleChange}
+                      checked={formik.values.role === 'teacher'}
+                      value="teacher"
+                    />
+                    <label htmlFor="teacher">teacher</label>
+                  </div>
+
+                  <div className={`${styles.radioImput} row`}>
+                    <input
+                      type="radio"
+                      id="user"
+                      name="role"
+                      required
+                      onChange={formik.handleChange}
+                      checked={formik.values.role === 'user'}
+                      value="user"
+                    />
+                    <label htmlFor="user">user</label>
+                  </div>
+
+                </div>
+              </div>
+
+
               <div className={`${styles.inputBox} ${styles.radio} column`}>
                 <label htmlFor="programmingLanguage">Programlasdirma dili:</label>
                 <div className={`${styles.radioImputBigBox} row-bet`}>
@@ -233,24 +272,24 @@ const SingUpSection = () => {
               <div className={`${styles.inputBox} column`}>
                 <label htmlFor="password">Parol</label>
                 <div className={`${styles.passwordInputBox} row-bet`}>
-              <input
-                id="password"
-                name="password"
-                type={showPassword ? "text" : "password"}
-                placeholder="Cavabınız"
-                onChange={formik.handleChange}
-                value={formik.values.password}
-                required
-              />
-              <button
-                type="button"
+                  <input
+                    id="password"
+                    name="password"
+                    type={showPassword ? "text" : "password"}
+                    placeholder="Cavabınız"
+                    onChange={formik.handleChange}
+                    value={formik.values.password}
+                    required
+                  />
+                  <button
+                    type="button"
 
-                onMouseDown={() => setShowPassword(true)}  // Basanda açılır
-                onMouseUp={() => setShowPassword(false)}  // Buraxanda bağlanır
-                onMouseLeave={() => setShowPassword(false)}            >
-                {showPassword ? <IoIosEyeOff /> : <FaEye />}
-              </button>
-            </div>
+                    onMouseDown={() => setShowPassword(true)}  // Basanda açılır
+                    onMouseUp={() => setShowPassword(false)}  // Buraxanda bağlanır
+                    onMouseLeave={() => setShowPassword(false)}            >
+                    {showPassword ? <IoIosEyeOff /> : <FaEye />}
+                  </button>
+                </div>
 
               </div>
 

@@ -8,6 +8,7 @@ import LoginPage from '../pages/LoginPage'
 import SingUp from '../pages/SingUp'
 import AdminLogin from '../pages/AdminLogin'
 import AdminSignup from '../pages/AdminSignup'
+import UserSignUpByAdminPage from '../pages/UserSignUpByAdminPage'
 
 const Router = () => {
     return (
@@ -19,9 +20,8 @@ const Router = () => {
       <Route path='/student-profile' element={<StudentProfile/>}/>
       <Route path='/login' element={<LoginPage/>}/>
       <Route path='/admin-login' element={<AdminLogin/>}/>
-      <Route path='/singup' element={<SingUp/>}/>
+      <Route path='/user-signup' element={<UserSignUpByAdminPage/>}/>
       <Route path='/admin-singup' element={<AdminSignup/>}/>
-      <Route path='/singup' element={<SingUp/>}/>
   </Routes>
   </BrowserRouter>
     )
