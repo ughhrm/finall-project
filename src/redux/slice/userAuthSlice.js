@@ -30,7 +30,7 @@ export const userAuthLogOutThunk = createAsyncThunk("user/logout", async () => {
     await axios.post("http://localhost:5050/user/logout", {}, { withCredentials: true });
     localStorage.removeItem("token");
 });
-export const getUserAuthThunk = createAsyncThunk("user/get", async (_, thunkAPI) => {
+export const getUserAuthThunk = createAsyncThunk("user/get", async ( thunkAPI) => {
     try {
         const token = localStorage.getItem("token");
         console.log("Token lokal saxlama:", token); 
@@ -47,7 +47,6 @@ export const getUserAuthThunk = createAsyncThunk("user/get", async (_, thunkAPI)
         return res.data;
         
     } catch (error) {
-        console.log("Xəta baş verdi:", error.response?.data || error.message);
         return thunkAPI.rejectWithValue(error.response?.data?.message || "İstifadəçi məlumatı əldə olunmadı.");
     }
 });

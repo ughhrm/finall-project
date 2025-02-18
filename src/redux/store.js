@@ -6,6 +6,7 @@ export const store =configureStore({
     reducer:{
         userAuth :userAuthSlice,
         adminAuth:adminAuthSlice
+    
 
     }
 })

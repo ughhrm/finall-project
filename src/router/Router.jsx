@@ -9,6 +9,9 @@ import SingUp from '../pages/SingUp'
 import AdminLogin from '../pages/AdminLogin'
 import AdminSignup from '../pages/AdminSignup'
 import UserSignUpByAdminPage from '../pages/UserSignUpByAdminPage'
+import AdminGetStudentPage from '../pages/AdminGetStudentPage'
+import AdminGetTeacherPage from '../pages/AdminGetTeacherPage'
+import GetAdminPage from '../pages/GetAdminPage'
 
 const Router = () => {
     return (
@@ -22,6 +25,9 @@ const Router = () => {
       <Route path='/admin-login' element={<AdminLogin/>}/>
       <Route path='/user-signup' element={<UserSignUpByAdminPage/>}/>
       <Route path='/admin-singup' element={<AdminSignup/>}/>
+      <Route path='/admin-getStudents' element={<AdminGetStudentPage/>}/>
+      <Route path='/admin-getTeachers' element={<AdminGetTeacherPage/>}/>
+      <Route path='/get-admin' element={<GetAdminPage/>}/>
   </Routes>
   </BrowserRouter>
     )

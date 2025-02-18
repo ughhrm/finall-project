@@ -1,11 +1,8 @@
 import styles from './SingUpSection.module.scss'
-import { userAuthSignUpThunk } from '../../redux/slice/userAuthSlice';
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { IoIosEyeOff } from "react-icons/io";
-import { FaEye } from "react-icons/fa";
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { resetError, signUpStudentandTeacherByAdminThunk } from '../../redux/slice/adminAuthSlice';
 
 
@@ -19,11 +16,11 @@ const SingUpSection = () => {
       name: '',
       lastName: '',
       email: '',
-      password: '',
       dateOfBirth: '',
       location: '',
       programmingLanguage: '',
-      role:''
+      role:'',
+      group:''
     },
     onSubmit: async (values) => {
       const action = await dispatch(signUpStudentandTeacherByAdminThunk(values));
@@ -35,9 +32,10 @@ const SingUpSection = () => {
   useEffect(()=>{
     dispatch(resetError())
   },[dispatch])
-  const [showPassword, setShowPassword] = useState(false);
 
   return (
+
+
     <div className={`${styles.section} column`}>
       <div className={`${styles.content} column-bet`}>
         <form className={`${styles.form} column-bet`} onSubmit={formik.handleSubmit}>
@@ -270,28 +268,18 @@ const SingUpSection = () => {
                 />
               </div>
               <div className={`${styles.inputBox} column`}>
-                <label htmlFor="password">Parol</label>
-                <div className={`${styles.passwordInputBox} row-bet`}>
-                  <input
-                    id="password"
-                    name="password"
-                    type={showPassword ? "text" : "password"}
-                    placeholder="Cavabınız"
-                    onChange={formik.handleChange}
-                    value={formik.values.password}
-                    required
-                  />
-                  <button
-                    type="button"
-
-                    onMouseDown={() => setShowPassword(true)}  // Basanda açılır
-                    onMouseUp={() => setShowPassword(false)}  // Buraxanda bağlanır
-                    onMouseLeave={() => setShowPassword(false)}            >
-                    {showPassword ? <IoIosEyeOff /> : <FaEye />}
-                  </button>
-                </div>
-
+                <label htmlFor="group">Qrup</label>
+                <input
+                  id="group"
+                  name="group"
+                  type="text"
+                  required
+                  placeholder="Cavabınız"
+                  onChange={formik.handleChange}
+                  value={formik.values.group}
+                />
               </div>
+           
 
             </div>
           </div>

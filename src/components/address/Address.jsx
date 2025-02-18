@@ -1,6 +1,5 @@
 import React from 'react'
 import styles from './Address.module.scss'
-import image from '../../img/image.png';
 
 
 const Address = () => {

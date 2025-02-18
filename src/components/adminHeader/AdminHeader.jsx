@@ -16,35 +16,36 @@ const AdminHeader = () => {
                 <div className={`${styles.btnBox} row-bet`}>
                     <div className={styles.dropdown}>
                         <button>
-                            Əlavə Et
+                            Istifadeciler
                         </button>
                         <div className={styles.dropdownMenu}>
                             <a
                                 href=""
                                 className={styles.dropdownItem}
-                                onClick={() => navigate("/login")}
+                                onClick={() => navigate("/admin-getStudents")}
                             >
-                                Tələbə Əlavə Et
+                                Tələbəler
                             </a>
                             <a
                                 href=""
                                 className={styles.dropdownItem}
-                                onClick={() => navigate("/teacher-login")}
+                                onClick={() => navigate("/admin-getTeachers")}
                             >
-                                Müəllim Əlavə Et
+                                Müəllimler
                             </a>
                             <a
                                 href=""
                                 className={styles.dropdownItem}
-                                onClick={() => navigate("/student-login")}
+                                onClick={() => navigate("/get-admin")}
                             >
-                                Admin Əlavə Et
+                                Adminler
                             </a>
+                          
                         </div>
                     </div>
 
                     <div className={styles.dropdown}>
-                        <button onClick={()=>navigate("/user-signup")}>UserƏlavə Et</button>
+                        <button onClick={()=>navigate("/user-signup")}>User Əlavə Et</button>
 
                     </div>
 
