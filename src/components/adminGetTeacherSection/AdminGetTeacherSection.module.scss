@@ -1,11 +1,10 @@
 .section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-    background-color: #f5f5f5;
-  }
-  
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background-color: #f5f5f5;
+
   .content {
     width: 90%;
     max-width: 1200px;
@@ -13,97 +12,132 @@
     padding: 20px;
     border-radius: 10px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  .searchBox {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    margin-bottom: 20px;
-    background: #fff;
-    padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .searchBox img {
-    width: 50px;
-    height: 50px;
-    object-fit: cover;
-    border-radius: 20%;
-  }
-  
-  .inputBox {
-    display: flex;
-    gap: 10px;
-    flex: 1;
-  }
-  
-  .inputBox input {
-    flex: 1;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    transition: 0.3s ease;
-  }
-  
-  .inputBox input:focus {
-    outline: none;
-    border-color: #007bff;
-    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
-  }
-  
-  .tableBox {
-    overflow-x: auto;
-    border-radius: 8px;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    background: white;
-    border-radius: 8px;
-    overflow: hidden;
-  }
-  
-  thead {
-    background: #007bff;
-    color: white;
-    font-size: 16px;
-  }
-  
-  th, td {
-    padding: 12px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
-  }
-  
-  table tr:hover td:nth-child(n+1) {
-    background: #f1f1f1;
-  }
-  
-  @media (max-width: 768px) {
+
     .searchBox {
-      flex-direction: column;
-      align-items: flex-start;
+      display: flex;
+      align-items: center;
+      gap: 15px;
+      margin-bottom: 20px;
+      background: #fff;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+      img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        border-radius: 50%;
+      }
+
+      .inputBox {
+        display: flex;
+        gap: 10px;
+        flex: 1;
+
+        input {
+          flex: 1;
+          padding: 10px;
+          border: 1px solid #ddd;
+          border-radius: 5px;
+          transition: 0.3s ease;
+
+          &:focus {
+            outline: none;
+            border-color: #007bff;
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+          }
+        }
+      }
     }
-  
-    .inputBox {
-      flex-direction: column;
-      width: 100%;
-    }
-  
-    .inputBox input {
-      width: 100%;
-    }
-  
-    table {
-      font-size: 14px;
-    }
-  
-    th, td {
-      padding: 10px;
+
+    .tableBox {
+      overflow-x: auto;
+      border-radius: 8px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: 8px;
+        overflow: hidden;
+
+        thead {
+          background: #007bff;
+          color: white;
+          font-size: 16px;
+        }
+        td{
+          input{
+            width: 120px;
+            outline: none;
+            border: none;
+
+          }
+
+        }
+
+        th, td {
+          padding: 12px;
+          text-align: left;
+          border-bottom: 1px solid #ddd;
+        }
+
+        tr:hover td:nth-child(n+1) {
+          background: #f1f1f1;
+        }
+
+        td {
+          .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+
+            button {
+              background-color: white;
+              padding: 5px;
+              border: none;
+              font-size: 25px;
+              transition: all 0.3s ease;
+
+              &:hover {
+                background-color: #F1F1F1;
+              }
+            }
+          }
+        }
+      }
     }
   }
-  
+}
+
+@media (max-width: 768px) {
+  .section {
+    .content {
+      .searchBox {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .inputBox {
+        flex-direction: column;
+        width: 100%;
+
+        input {
+          width: 100%;
+        }
+      }
+
+      .tableBox {
+        table {
+          font-size: 14px;
+
+          th, td {
+            padding: 10px;
+          }
+        }
+      }
+    }
+  }
+}

@@ -12,6 +12,8 @@ import UserSignUpByAdminPage from '../pages/UserSignUpByAdminPage'
 import AdminGetStudentPage from '../pages/AdminGetStudentPage'
 import AdminGetTeacherPage from '../pages/AdminGetTeacherPage'
 import GetAdminPage from '../pages/GetAdminPage'
+import GropupsPage from '../pages/GropupsPage'
+import EvaluationPage from '../pages/EvaluationPage'
 
 const Router = () => {
     return (
@@ -28,6 +30,8 @@ const Router = () => {
       <Route path='/admin-getStudents' element={<AdminGetStudentPage/>}/>
       <Route path='/admin-getTeachers' element={<AdminGetTeacherPage/>}/>
       <Route path='/get-admin' element={<GetAdminPage/>}/>
+      <Route path='/get-group' element={<GropupsPage/>}/>
+      <Route path='/student-evaluation' element={<EvaluationPage/>}/>
   </Routes>
   </BrowserRouter>
     )

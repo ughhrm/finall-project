@@ -62,7 +62,7 @@ export const signUpStudentandTeacherByAdminThunk = createAsyncThunk("student/tea
       try {
         const token = localStorage.getItem("token");
 
-        const response = await axios.delete(`http://localhost:5050/admin/delete-user/${id}`, {
+        const res = await axios.delete(`http://localhost:5050/admin/delete-user/${id}`, {
           headers: {
             Authorization: `Bearer ${token}`, 
           },
@@ -74,26 +74,42 @@ export const signUpStudentandTeacherByAdminThunk = createAsyncThunk("student/tea
     }
   );
 
-// İstifadəçi məlumatlarını yeniləmək üçün Redux Thunk
 export const updateUserByAdmin = createAsyncThunk(
   "admin/updateUser",
   async ({ id, userData }, thunkAPI) => {
     try {
         const token = localStorage.getItem("token");
 
-      const response = await axios.patch(`http://localhost:5050/admin/update-user/${id}`, userData, {
+      const res = await axios.patch(`http://localhost:5050/admin/update-user/${id}`, userData, {
         headers: {
           "Content-Type": "application/json",
            "Authorization": `Bearer ${token}`
         },
       });
-      return response.data;
+      return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error.response?.data?.message || "Xəta baş verdi");
     }
   }
 );
 
+
+export const getStudentsByClass = createAsyncThunk("students/getStudentsByClass",
+    async (thunkAPI) => {
+      try {
+        const token = localStorage.getItem("token");
+
+        const res = await axios.get("http://localhost:5050/admin/students-by-class", {
+          headers: {
+            Authorization: `Bearer ${token}`, 
+          },
+        });
+        return res.data; 
+      } catch (error) {
+        return thunkAPI.rejectWithValue(error.response?.data?.message || "Xəta baş verdi!");
+      }
+    }
+  );
 
 
 
@@ -184,7 +200,19 @@ export const adminSlice = createSlice({
               .addCase(updateUserByAdmin.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
+              })
+              .addCase(getStudentsByClass.pending, (state) => {
+                state.loading = true;
+              })
+              .addCase(getStudentsByClass.fulfilled, (state, action) => {
+                state.loading = false;
+                state.adminAuth = action.payload;
+              })
+              .addCase(getStudentsByClass.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
               });
+        
     }
 })
 

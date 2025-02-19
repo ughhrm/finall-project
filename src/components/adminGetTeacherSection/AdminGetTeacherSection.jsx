@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteUserByAdminThunk, getAllUsersByAdminThunk, updateUserByAdmin } from '../../redux/slice/adminAuthSlice';
 import { MdDelete, MdModeEdit, MdSave, MdCancel } from "react-icons/md";
 
-const AdminGetTeacherSection = () => {
+const AdminGetUserSection = () => {
   const dispatch = useDispatch();
   const { adminAuth } = useSelector(state => state.adminAuth);
 
@@ -17,27 +17,28 @@ const AdminGetTeacherSection = () => {
   const [editingId, setEditingId] = useState(null);
   const [editedData, setEditedData] = useState({});
 
-  const teachers = adminAuth
+  const users = adminAuth
     .filter(item => item.role === 'teacher')
     .sort((a, b) => a.name.localeCompare(b.name));
 
-  const filteredTeachers = teachers.filter(item => {
+  const filteredUsers = users.filter(item => {
     const matchesName = item.name.toLowerCase().includes(name.toLowerCase());
     const matchesEmail = item.email.toLowerCase().includes(email.toLowerCase());
     return matchesName && matchesEmail;
   });
 
-  const handleEdit = (teacher) => {
-    setEditingId(teacher._id);
-    setEditedData({ ...teacher });
+  const handleEdit = (user) => {
+    setEditingId(user._id);
+    setEditedData({ ...user });
   };
 
   const handleChange = (e, field) => {
-    setEditedData({ ...editedData, [field]: e.target.value });
+    setEditedData(prev => ({ ...prev, [field]: e.target.value }));
   };
 
-  const handleSave = (id) => {
-    dispatch(updateUserByAdmin(id,editedData));
+  const handleSave = async () => {
+    if (!editingId) return;
+    await dispatch(updateUserByAdmin({ id: editingId, userData: editedData }));
     setEditingId(null);
   };
 
@@ -49,10 +50,10 @@ const AdminGetTeacherSection = () => {
     <div className={styles.section}>
       <div className={styles.content}>
         <div className={styles.searchBox}>
-          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZGtnERe-XiD68WXngZD9CcwvougwN8X0yaQ&s" alt="Teacher Icon" />
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZGtnERe-XiD68WXngZD9CcwvougwN8X0yaQ&s" alt="User Icon" />
           <div className={styles.inputBox}>
-            <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Ad" />
-            <input type="text" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-poçt" />
+            <input type="text" value={name} onChange={(e) => setName(e.target.value)} placeholder="Ad" />
+            <input type="text" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-poçt" />
           </div>
         </div>
 
@@ -66,36 +67,46 @@ const AdminGetTeacherSection = () => {
                 <th>Yaşadığı yer</th>
                 <th>E-poçt</th>
                 <th>Proqramlaşdırma dili</th>
-                <th>Delete</th>
-                <th>Edit</th>
+                <th>Əməliyyatlar</th>
               </tr>
             </thead>
             <tbody>
-              {filteredTeachers.length > 0 ? (
-                filteredTeachers.map(teacher => (
-                  <tr key={teacher._id}>
-                    <td>{editingId === teacher._id ? <input type="text" value={editedData.name} onChange={(e) => handleChange(e, 'name')} /> : teacher.name}</td>
-                    <td>{editingId === teacher._id ? <input type="text" value={editedData.lastName} onChange={(e) => handleChange(e, 'lastName')} /> : teacher.lastName}</td>
-                    <td>{editingId === teacher._id ? <input type="date" value={editedData.dateOfBirth} onChange={(e) => handleChange(e, 'dateOfBirth')} /> : teacher.dateOfBirth}</td>
-                    <td>{editingId === teacher._id ? <input type="text" value={editedData.location} onChange={(e) => handleChange(e, 'location')} /> : teacher.location}</td>
-                    <td>{editingId === teacher._id ? <input type="email" value={editedData.email} onChange={(e) => handleChange(e, 'email')} /> : teacher.email}</td>
-                    <td>{editingId === teacher._id ? <input type="text" value={editedData.programmingLanguage} onChange={(e) => handleChange(e, 'programmingLanguage')} /> : teacher.programmingLanguage}</td>
-                    <td><button onClick={() => dispatch(deleteUserByAdminThunk(teacher._id))}><MdDelete /></button></td>
+              {filteredUsers.length > 0 ? (
+                filteredUsers.map(user => (
+                  <tr key={user._id}>
+                    <td>{editingId === user._id ? <input type="text" value={editedData.name || ''} onChange={(e) => handleChange(e, 'name')} /> : user.name}</td>
+                    <td>{editingId === user._id ? <input type="text" value={editedData.lastName || ''} onChange={(e) => handleChange(e, 'lastName')} /> : user.lastName}</td>
                     <td>
-                      {editingId === teacher._id ? (
-                        <>
-                          <button onClick={()=>handleSave(teacher._id)}><MdSave /></button>
-                          <button onClick={handleCancel}><MdCancel /></button>
-                        </>
-                      ) : (
-                        <button onClick={() => handleEdit(teacher)}><MdModeEdit /></button>
-                      )}
+                      {editingId === user._id ? (
+                        <input
+                        type="date"
+                        value={editedData.dateOfBirth ? new Date(editedData.dateOfBirth).toISOString().split('T')[0] : ''} 
+                        onChange={(e) => handleChange(e, 'dateOfBirth')}
+                      />
+                      ) : user.dateOfBirth ? new Date(user.dateOfBirth).toISOString().split('T')[0] : ''}
+                    </td>                    <td>{editingId === user._id ? <input type="text" value={editedData.location || ''} onChange={(e) => handleChange(e, 'location')} /> : user.location}</td>
+                    <td>{editingId === user._id ? <input type="email" value={editedData.email || ''} onChange={(e) => handleChange(e, 'email')} /> : user.email}</td>
+                    <td>{editingId === user._id ? <input type="text" value={editedData.programmingLanguage || ''} onChange={(e) => handleChange(e, 'programmingLanguage')} /> : user.programmingLanguage}</td>
+                    <td>
+                      <div className={styles.buttons}>
+                        {editingId === user._id ? (
+                          <>
+                            <button onClick={handleSave}><MdSave /></button>
+                            <button onClick={handleCancel}><MdCancel /></button>
+                          </>
+                        ) : (
+                          <>
+                            <button onClick={() => dispatch(deleteUserByAdminThunk(user._id))}><MdDelete /></button>
+                            <button onClick={() => handleEdit(user)}><MdModeEdit /></button>
+                          </>
+                        )}
+                      </div>
                     </td>
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan="8">Heç bir müəllim tapılmadı</td>
+                  <td colSpan="7">Heç bir müəllim tapılmadı</td>
                 </tr>
               )}
             </tbody>
@@ -106,4 +117,4 @@ const AdminGetTeacherSection = () => {
   );
 };
 
-export default AdminGetTeacherSection;
+export default AdminGetUserSection;

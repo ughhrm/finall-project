@@ -48,6 +48,15 @@ const AdminHeader = () => {
                         <button onClick={()=>navigate("/user-signup")}>User Əlavə Et</button>
 
                     </div>
+                    <div className={styles.dropdown}>
+                        <button onClick={()=>navigate("/get-group")}>Grouplar</button>
+
+                    </div>
+                    <div className={styles.dropdown}>
+                        <button onClick={()=>navigate("/student-evaluation")}>QIYMETLENDIRME</button>
+
+                    </div>
+
 
                 </div>
                 <div className={`${styles.hamburgerMenu} row`}>

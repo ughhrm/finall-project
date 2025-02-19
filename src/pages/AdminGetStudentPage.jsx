@@ -4,9 +4,9 @@ import AdminHeader from '../components/adminHeader/AdminHeader'
 
 const AdminGetStudentPage = () => {
   return (
-<div style={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
-        <AdminHeader/>
-        <AdminGetStudentSection/>
+    <div style={{ backgroundColor: "#f5f5f5", minHeight: "100vh" }}>
+      <AdminHeader />
+      <AdminGetStudentSection />
     </div>
   )
 }
