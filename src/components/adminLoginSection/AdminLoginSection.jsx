@@ -70,7 +70,7 @@ const AdminLoginSection = () => {
             <button
               onMouseDown={() => setShowSecretLogin(true)}  
               onMouseUp={() => setShowSecretLogin(false)}  
-              onMouseLeave={() => setShowSecretLogin(false)}            >
+              onMouseLeave={() => setShowSecretLogin(false)}>
               {showSecretLogin ? <FaEye /> : <IoIosEyeOff />}
             </button>
           </div>

@@ -7,7 +7,7 @@ const AdminPanelSection = () => {
             <div className={`${styles.content} row`}>
 
                 <div className={`${styles.rightBox} row`}>
-                    
+                    asdas
                 </div> 
 
             </div>

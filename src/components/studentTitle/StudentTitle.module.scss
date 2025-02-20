@@ -1,0 +1,124 @@
+.header {
+    width: 100%;
+    background-color: #00427C;
+    height: 11vh;
+    top: 0px;
+    position: sticky;
+    margin-bottom: 20px;
+
+    .content {
+        width: 90%;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .logoBox {
+            gap: 15px;
+            img {
+                width: 50px;
+                border-radius: 50%;
+                padding: 7px;
+                background-color: white;
+            }
+
+            h3 {
+                font-family: "Cinzel Decorative", serif;
+            }
+        }
+
+        .btnBox {
+            width: 500px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+        
+
+            .dropdown {
+                position: relative;
+                button {
+                    padding: 10px;
+                    background-color: transparent;
+                    color: white;
+                    border: none;
+                    font-size: 17px;
+                    cursor: pointer;
+                    transition: all 0.6s ease;
+                }
+
+                &:hover .dropdownMenu {
+                    display: block; /* Menu opens on hover */
+                }
+
+                .dropdownMenu {
+                    display: none; /* Initially hidden */
+                    position: absolute;
+                    top: 100%;
+                    right: 0;
+                    background-color: white;
+                    border: 1px solid #ddd;
+                    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+                    width: 200px;
+                    z-index: 10;
+
+                    .dropdownItem {
+                        padding: 10px;
+                        text-decoration: none;
+                        color: black;
+                        display: block;
+                        font-size: 14px;
+
+                        &:hover {
+                            background-color: #f1f1f1;
+                        }
+                    }
+                }
+            }
+        }
+
+        .hamburgerMenu {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        .content {
+            .btnBox {
+                display: none;
+            }
+        }
+
+        .hamburgerMenu {
+            display: flex !important;
+            button {
+                background-color: transparent;
+                border: none;
+                color: white;
+                font-size: 25px;
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .header {
+        .content {
+            .btnBox {
+                display: none;
+            }
+        }
+
+        .hamburgerMenu {
+            display: flex !important;
+            button {
+                background-color: transparent;
+                border: none;
+                color: white;
+                font-size: 25px;
+            }
+        }
+    }
+}

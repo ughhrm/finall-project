@@ -1,9 +1,9 @@
 import React from 'react';
-import styles from './AdminHeader.module.scss';
+import styles from './StudentTitle.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { GiHamburgerMenu } from "react-icons/gi";
 
-const AdminHeader = () => {
+const StudentTitle = () => {
     const navigate = useNavigate();
 
     return (
@@ -41,4 +41,4 @@ const AdminHeader = () => {
     );
 };
 
-export default AdminHeader;
+export default StudentTitle;

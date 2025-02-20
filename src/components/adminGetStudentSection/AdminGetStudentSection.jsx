@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteUserByAdminThunk, getAllUsersByAdminThunk, updateUserByAdmin } from '../../redux/slice/adminAuthSlice';
 import { MdDelete, MdModeEdit, MdSave, MdCancel } from "react-icons/md";
 
-const AdminGetuserSection = () => {
+const AdminGetStudentSection = () => {
   const dispatch = useDispatch();
   const { adminAuth } = useSelector(state => state.adminAuth);
 
@@ -149,4 +149,4 @@ const AdminGetuserSection = () => {
   );
 };
 
-export default AdminGetuserSection;
+export default AdminGetStudentSection;
