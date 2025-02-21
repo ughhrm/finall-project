@@ -2,10 +2,9 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import styles from "./EvaluationSection.module.scss";
 import { getStudentsByClass } from "../../redux/slice/adminAuthSlice";
-import { getEvaluationsByGroupThunk, updateEvaluationThunk } from "../../redux/slice/evaluationSlice";
+import { getEvaluationsByGroupThunk, updateEvaluationThunk, createEvaluationThunk } from "../../redux/slice/evaluationSlice";
 import moment from "moment";
 import { MdModeEdit, MdSave, MdOutlineCancel } from "react-icons/md";
-
 
 const EvaluationSection = () => {
   const dispatch = useDispatch();
@@ -15,6 +14,7 @@ const EvaluationSection = () => {
   const [selectedClass, setSelectedClass] = useState(null);
   const [editableScore, setEditableScore] = useState({});
   const [editedScores, setEditedScores] = useState({});
+  const [newDate, setNewDate] = useState("");
 
   useEffect(() => {
     dispatch(getStudentsByClass());
@@ -24,10 +24,10 @@ const EvaluationSection = () => {
     if (selectedClass) {
       dispatch(getEvaluationsByGroupThunk(selectedClass));
     }
-  }, [selectedClass, dispatch,]);
+  }, [selectedClass, dispatch]);
 
   if (loading || evalLoading) return <p>Yüklənir...</p>;
-  if (error || evalError) return <p>Xəta: {error || evalError}</p>;
+  if (error || evalError) return <p>Xəta: {error?.message || evalError?.message}</p>;
 
   const formattedDates = [...new Set(evaluations.map(e => moment.utc(e.gradeDate).local().add(1, 'day').format("YYYY-MM-DD")))];
 
@@ -47,20 +47,24 @@ const EvaluationSection = () => {
     setEditedScores({ ...editedScores, [`${studentId}-${date}`]: groupedEvaluations[studentId]?.scores[date]?.score || "" });
   };
 
-  const handleChange = (e, studentId, date) => {
-    setEditedScores({ ...editedScores, [`${studentId}-${date}`]: e.target.value });
-  };
-
   const handleSave = (studentId, date) => {
     const evaluation = groupedEvaluations[studentId]?.scores[date];
     if (!evaluation || !evaluation.id) return;
-    dispatch(updateEvaluationThunk({ id: evaluation.id, data: { score: editedScores[`${studentId}-${date}`] } }));
+
+    dispatch(updateEvaluationThunk({ id: evaluation.id, data: { score: Number(editedScores[`${studentId}-${date}`]) } }));
     setEditableScore({});
   };
 
   const handleCancel = () => {
     setEditableScore({});
     setEditedScores({});
+  };
+
+  const handleAddDay = () => {
+    if (!selectedClass || !newDate) return;
+    dispatch(createEvaluationThunk({ group: selectedClass, gradeDate: newDate }))
+      .then(() => dispatch(getEvaluationsByGroupThunk(selectedClass))); // Yeni gün əlavə edildikdən sonra siyahını yenilə
+    setNewDate("");
   };
 
   return (
@@ -81,6 +85,16 @@ const EvaluationSection = () => {
       {selectedClass && (
         <div className={styles.tableBox}>
           <h3 className={styles.classTitle}>Qrup: {selectedClass}</h3>
+          <div className={styles.addDayContainer}>
+            <input
+              type="date"
+              value={newDate}
+              onChange={(e) => setNewDate(e.target.value)}
+            />
+            <button className={styles.addDayButton} onClick={handleAddDay}>
+              Yeni Gün Əlavə Et
+            </button>
+          </div>
           <table>
             <thead>
               <tr>
@@ -104,7 +118,7 @@ const EvaluationSection = () => {
                             <input
                               type="number"
                               value={editedScores[`${studentId._id}-${date}`] || ""}
-                              onChange={(e) => handleChange(e, studentId._id, date)}
+                              onChange={(e) => setEditedScores({ ...editedScores, [`${studentId._id}-${date}`]: e.target.value })}
                               autoFocus
                             />
                             <button className={styles.saveBtn} onClick={() => handleSave(studentId._id, date)}>

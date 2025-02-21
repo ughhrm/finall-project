@@ -27,51 +27,71 @@
         }
 
         .btnBox {
-            width: 500px;
+            width: 700px;
             display: flex;
             justify-content: space-between;
             align-items: center;
 
-        
-
             .dropdown {
                 position: relative;
+
                 button {
                     padding: 10px;
                     background-color: transparent;
                     color: white;
                     border: none;
-                    font-size: 17px;
+                    font-size: 15px;
                     cursor: pointer;
-                    transition: all 0.6s ease;
+                    transition: all 0.3s ease;
                 }
 
                 &:hover .dropdownMenu {
-                    display: block; /* Menu opens on hover */
+                    display: block;
                 }
 
                 .dropdownMenu {
-                    display: none; /* Initially hidden */
+                    display: none;
                     position: absolute;
                     top: 100%;
-                    right: 0;
+                    left: 0;
                     background-color: white;
                     border: 1px solid #ddd;
                     box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
                     width: 200px;
                     z-index: 10;
+                    border-radius: 5px;
+                    overflow: hidden;
 
-                    .dropdownItem {
+                    button {
+                        width: 100%;
                         padding: 10px;
-                        text-decoration: none;
+                        text-align: left;
+                        background-color: white;
                         color: black;
-                        display: block;
-                        font-size: 14px;
+                        border: none;
+                        cursor: pointer;
+                        font-size: 15px;
+                        transition: all 0.3s ease;
 
                         &:hover {
                             background-color: #f1f1f1;
                         }
                     }
+                }
+            }
+
+            .logOut {
+                background-color: #D5447B;
+                padding: 8px 0;
+                border: none;
+                color: #f1f1f1;
+                font-size: 17px;
+                width: 137px;
+                border-radius: 20px;
+                transition: all 0.3s ease;
+
+                &:hover {
+                    box-shadow: 0 0 10px;
                 }
             }
         }
@@ -82,7 +102,7 @@
     }
 }
 
-@media (max-width: 768px) {
+@media (max-width: 880px) {
     .header {
         .content {
             .btnBox {
@@ -97,6 +117,28 @@
                 border: none;
                 color: white;
                 font-size: 25px;
+            }
+        }
+    }
+}
+
+@media screen and (min-width: 768px) and (max-width: 1000px) {
+    .header {
+        .content {
+            .btnBox {
+                width: 580px;
+
+                .dropdown {
+                    button{
+                        font-size: 13px;
+
+                    }
+                   
+                }
+                .logOut {
+                    font-size: 15px;
+                }
+
             }
         }
     }

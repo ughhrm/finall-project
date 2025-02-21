@@ -41,7 +41,7 @@ const AttendanceSection = () => {
     if (evalData.attendance !== 0) {
       acc[studentId].absenceCount += evalData.attendance;
     }
-    
+
     return acc;
   }, {});
 
@@ -70,9 +70,9 @@ const AttendanceSection = () => {
     <div className={styles.section}>
       <h2 className={styles.title}>Yoxlama Cədvəli</h2>
       <div className={styles.classList}>
-        {Object.keys(adminAuth).map((className) => (
+        {Object.keys(adminAuth).map((className, index) => (
           <button
-            key={className}
+            key={`class-${index}`}
             onClick={() => setSelectedClass(className)}
             className={selectedClass === className ? styles.active : styles.classButton}
           >
@@ -102,7 +102,7 @@ const AttendanceSection = () => {
                     <td>{studentId?.name}</td>
                     <td>{studentId?.lastName}</td>
                     {formattedDates.map(date => (
-                      <td key={date} className={styles.scoreCell}>
+                      <td key={`${studentId._id}-${date}`} className={styles.scoreCell}>
                         {editableAttendance.studentId === studentId._id && editableAttendance.date === date ? (
                           <div>
                             <input
@@ -125,7 +125,9 @@ const AttendanceSection = () => {
                         )}
                       </td>
                     ))}
-                    <td className={styles.absenceCell}>{absenceCount}</td>
+                    <td className={`${styles.absenceCell} ${absenceCount >= 13 && absenceCount < 17 ? styles.yellowCell : ""} ${absenceCount >= 17 && absenceCount <= 20 ? styles.redCell : ""}`}>
+                      {absenceCount}
+                    </td>               
                   </tr>
                 ))
               ) : (

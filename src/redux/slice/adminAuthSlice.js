@@ -36,6 +36,14 @@ export const signUpStudentandTeacherByAdminThunk = createAsyncThunk("student/tea
      
     }
  })
+
+
+ export const adminAuthLogOutThunk = createAsyncThunk("admin/logout", async () => {
+  await axios.post("http://localhost:5050/admin/logout", {}, { withCredentials: true });
+  localStorage.removeItem("token");
+});
+
+
  export const getAllUsersByAdminThunk = createAsyncThunk("AllUsersByAdmin",async(thunkAPI)=>{
  
     try {
@@ -94,7 +102,7 @@ export const updateUserByAdmin = createAsyncThunk(
 );
 
 
-export const getStudentsByClass = createAsyncThunk("students/getStudentsByClass",
+export const getStudentsByClass = createAsyncThunk("/getStudentsByClass",
     async (thunkAPI) => {
       try {
         const token = localStorage.getItem("token");
@@ -110,6 +118,24 @@ export const getStudentsByClass = createAsyncThunk("students/getStudentsByClass"
       }
     }
   );
+  
+export const getStudentsByStudent = createAsyncThunk("students/getStudentsByStudents",
+  async (thunkAPI) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const res = await axios.get("http://localhost:5050/user/students-by-class", {
+        headers: {
+          Authorization: `Bearer ${token}`, 
+        },
+      });
+      return res.data; 
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data?.message || "Xəta baş verdi!");
+    }
+  }
+);
+
 
 
 
@@ -209,6 +235,18 @@ export const adminSlice = createSlice({
                 state.adminAuth = action.payload;
               })
               .addCase(getStudentsByClass.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+              })
+
+              .addCase(getStudentsByStudent.pending, (state) => {
+                state.loading = true;
+              })
+              .addCase(getStudentsByStudent.fulfilled, (state, action) => {
+                state.loading = false;
+                state.adminAuth = action.payload;
+              })
+              .addCase(getStudentsByStudent.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
               });

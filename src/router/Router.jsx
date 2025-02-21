@@ -15,6 +15,7 @@ import GetAdminPage from '../pages/GetAdminPage'
 import GropupsPage from '../pages/GropupsPage'
 import EvaluationPage from '../pages/EvaluationPage'
 import AttendancePage from '../pages/AttendancePage'
+import StudentAttendancePage from '../pages/StudentAttendancePage'
 
 const Router = () => {
     return (
@@ -34,6 +35,7 @@ const Router = () => {
       <Route path='/get-group' element={<GropupsPage/>}/>
       <Route path='/student-evaluation-by' element={<EvaluationPage/>}/>
       <Route path='/student-attendance-by' element={<AttendancePage/>}/>
+      <Route path='/student-attendance' element={<StudentAttendancePage/>}/>
   </Routes>
   </BrowserRouter>
     )

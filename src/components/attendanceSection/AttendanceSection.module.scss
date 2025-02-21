@@ -80,6 +80,16 @@
         background-color: #f2f2f2;
       }
       tbody{
+        .yellowCell {
+          background-color: rgb(218, 218, 100);
+          color: white;  
+          font-weight: bold;
+        }
+        .redCell {
+          background-color: red;
+          color: white;  
+          font-weight: bold;
+        }
         .scoreCell{
          div{
           display: flex;

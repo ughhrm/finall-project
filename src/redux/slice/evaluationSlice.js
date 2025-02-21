@@ -21,6 +21,26 @@ export const getEvaluationsByGroupThunk = createAsyncThunk(
   }
 );
 
+export const getEvaluationsByGroupforStudentThunk = createAsyncThunk(
+  "/user/evaluations/getByGroup",
+  async (group, thunkAPI) => {
+    try {
+        const token = localStorage.getItem("token");
+
+      const response = await axios.get(`http://localhost:5050/evaluations/get/group/${group}`,{
+        headers: {
+            Authorization: `Bearer ${token}`, 
+          },
+
+      });
+      return response.data.evaluations;
+
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error.response?.data?.message || "Xəta baş verdi");
+    }
+  }
+);
+
 export const updateEvaluationThunk = createAsyncThunk(
   "evaluations/updateEvaluation",
   async ({ id, data }, { rejectWithValue, getState }) => {
@@ -66,6 +86,26 @@ export const updateAttendanceThunk = createAsyncThunk(
   }
 );
 
+export const createEvaluationThunk = createAsyncThunk(
+  "evaluations/createEvaluation",
+  async ({ group, gradeDate }, { rejectWithValue }) => {
+    try {
+      const token = localStorage.getItem("token");
+
+      const response = await axios.post("http://localhost:5050/evaluations/create", { group, gradeDate },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`, 
+          },
+        }
+      );
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data?.message || "Xəta baş verdi");
+    }
+  }
+);
+
 
  export const evaluationSlice = createSlice({
   name: "evaluations",
@@ -88,6 +128,18 @@ export const updateAttendanceThunk = createAsyncThunk(
         state.loading = false;
         state.error = action.payload;
       })
+      .addCase(getEvaluationsByGroupforStudentThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(getEvaluationsByGroupforStudentThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.evaluations = action.payload;
+      })
+      .addCase(getEvaluationsByGroupforStudentThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
      
       .addCase(updateEvaluationThunk.pending, (state) => {
         state.loading = true;
@@ -99,9 +151,21 @@ export const updateAttendanceThunk = createAsyncThunk(
 
         state.evaluations = state.evaluations.map((evaluation) =>
           evaluation._id === updatedEvaluation._id ? updatedEvaluation : evaluation
-        );
+        )
       })
       .addCase(updateEvaluationThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.payload;
+      })
+      .addCase(createEvaluationThunk.pending, (state) => {
+        state.loading = true;
+        state.error = null;
+      })
+      .addCase(createEvaluationThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.evaluations = [...state.evaluations, ...action.payload.evaluations];
+      })
+      .addCase(createEvaluationThunk.rejected, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

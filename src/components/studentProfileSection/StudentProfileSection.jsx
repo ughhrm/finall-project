@@ -8,12 +8,6 @@ import { useNavigate } from 'react-router-dom'
 const StudentProfileSection = () => {
   const navigate = useNavigate()
   const dispatch = useDispatch()
-  const handleLogout = async () => {
-    const action = await dispatch(userAuthLogOutThunk())
-    if (userAuthLogOutThunk.fulfilled.match(action)) {
-      navigate('/')
-    }
-  }
 
   const { userAuth } = useSelector(state => state.userAuth)
   useEffect(() => {
@@ -22,7 +16,6 @@ const StudentProfileSection = () => {
       navigate('/');
     }
     dispatch(getUserAuthThunk())
-    console.log(userAuth)
 
   }, [dispatch])
 
@@ -39,7 +32,6 @@ const StudentProfileSection = () => {
         <div className={`${styles.infoBox} column-bet`}>
           <div className={`${styles.title} row`}>
             <h2>Telebe Profili</h2>
-            <button onClick={handleLogout}>Log out</button>
           </div>
 
           {userAuth ? (
@@ -76,6 +68,11 @@ const StudentProfileSection = () => {
                 <div>
                   <p>Email:</p>
                   <h3>{userAuth.email}</h3>
+
+                </div>
+                <div>
+                  <p>Qurup:</p>
+                  <h3>{userAuth.group}</h3>
 
                 </div>
 

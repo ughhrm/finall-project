@@ -2,13 +2,14 @@ import styles from './SingUpSection.module.scss'
 import { useFormik } from 'formik';
 import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { resetError, signUpStudentandTeacherByAdminThunk } from '../../redux/slice/adminAuthSlice';
 
 
 const SingUpSection = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [success, setSuccess] =useState("")
   const { error, loading } = useSelector((state) => state.adminAuth);
 
   const formik = useFormik({
@@ -25,12 +26,14 @@ const SingUpSection = () => {
     onSubmit: async (values) => {
       const action = await dispatch(signUpStudentandTeacherByAdminThunk(values));
       if (signUpStudentandTeacherByAdminThunk.fulfilled.match(action)) {
-        navigate("/login")
+        setSuccess("Istifadeci  ugurla yaradildi")
       }
     },
   });
   useEffect(()=>{
     dispatch(resetError())
+    setSuccess("")
+
   },[dispatch])
 
   return (
@@ -41,6 +44,7 @@ const SingUpSection = () => {
         <form className={`${styles.form} column-bet`} onSubmit={formik.handleSubmit}>
           <h4>Qeydiyattan kec</h4>
           {error && <p style={{ color: 'red' }}>{error}</p>}
+          {success && <p style={{ color: 'green' }}>{success}</p>}
 
           <div className={`${styles.bigBox} row-bet`}>
             <div className={`${styles.leftBox} column-bet`}>

@@ -48,11 +48,11 @@
                 }
 
                 &:hover .dropdownMenu {
-                    display: block; /* Menu opens on hover */
+                    display: block; 
                 }
 
                 .dropdownMenu {
-                    display: none; /* Initially hidden */
+                    display: none; 
                     position: absolute;
                     top: 100%;
                     right: 0;
@@ -72,6 +72,20 @@
                         &:hover {
                             background-color: #f1f1f1;
                         }
+                    }
+                }
+             
+            }
+            .logout{
+                button{
+                    background-color: #D5447B;
+                    border: none;
+                    padding: 5px;
+                    border-radius: 20px;
+                    width: 80px;
+                    transition: all 0.6s ease;
+                    &:hover{
+                        box-shadow: 0 0 10px;
                     }
                 }
             }
