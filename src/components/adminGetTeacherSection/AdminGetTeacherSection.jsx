@@ -6,7 +6,7 @@ import { MdDelete, MdModeEdit, MdSave, MdCancel } from "react-icons/md";
 
 const AdminGetUserSection = () => {
   const dispatch = useDispatch();
-  const { adminAuth } = useSelector(state => state.adminAuth);
+  const { adminAuth  } = useSelector(state => state.adminAuth);
 
   useEffect(() => {
     dispatch(getAllUsersByAdminThunk());

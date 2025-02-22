@@ -18,7 +18,6 @@ const   AdminGetStudentSection = () => {
   const [editingId, setEditingId] = useState(null);
   const [editedData, setEditedData] = useState({});
 
-  // adminAuth array formatında olub-olmadığını yoxlayırıq
   const users = Array.isArray(adminAuth) ? adminAuth.filter(item => item.role === 'user') : [];
 
   const filteredUsers = users.filter(item => {

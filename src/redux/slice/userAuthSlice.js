@@ -4,6 +4,22 @@ import axios from "axios";
 
 const API_URL = "http://localhost:5050/user";
 
+export const changePassword = createAsyncThunk(
+    "password/changePassword",
+    async ({ email, oldPassword, newPassword }, { rejectWithValue }) => {
+      try {
+        const response = await axios.put("http://localhost:5050/user/change-password", {
+          email,
+          oldPassword,
+          newPassword,
+        });
+        return response.data; 
+      } catch (error) {
+        return rejectWithValue(error.response?.data?.message || "Xəta baş verdi");
+      }
+    }
+  );
+
 export const userAuthLoginThunk = createAsyncThunk("user/login", async (userData, thunkAPI) => {
     try {
         const response = await axios.post(`${API_URL}/login`, userData);
@@ -60,6 +76,7 @@ export const userAuthSlice = createSlice({
         userAuth: [],
         loading: false,
         error: null,
+        successMessage: null,
     },
     reducers: {
         resetError: (state) => {
@@ -114,6 +131,20 @@ export const userAuthSlice = createSlice({
                 state.error = action.payload;
                 state.loading = false;
             })
+            .addCase(changePassword.pending, (state) => {
+                state.loading = true;
+                state.successMessage = null;
+                state.error = null;
+            })
+            .addCase(changePassword.fulfilled, (state, action) => {
+                state.loading = false;
+                state.successMessage = action.payload.message;
+            })
+            .addCase(changePassword.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.payload;
+            });
+     
     },
 });
 

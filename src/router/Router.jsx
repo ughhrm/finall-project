@@ -16,6 +16,9 @@ import GropupsPage from '../pages/GropupsPage'
 import EvaluationPage from '../pages/EvaluationPage'
 import AttendancePage from '../pages/AttendancePage'
 import StudentAttendancePage from '../pages/StudentAttendancePage'
+import ChangePasswordPage from '../pages/ChangePasswordPage'
+import NotFoundPage from '../pages/NotFoundPage'
+import NotificationSendPage from '../pages/NotificationSendPage'
 
 const Router = () => {
     return (
@@ -36,6 +39,10 @@ const Router = () => {
       <Route path='/student-evaluation-by' element={<EvaluationPage/>}/>
       <Route path='/student-attendance-by' element={<AttendancePage/>}/>
       <Route path='/student-attendance' element={<StudentAttendancePage/>}/>
+      <Route path='/change-password' element={<ChangePasswordPage/>}/>
+      <Route path='*' element={<NotFoundPage/>}/>
+      <Route path='/notification-send' element={<NotificationSendPage/>}/>
+      <Route path='/notification-send' element={<NotificationSendPage/>}/>
   </Routes>
   </BrowserRouter>
     )

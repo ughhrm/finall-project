@@ -199,8 +199,8 @@ const SingUpSection = () => {
                         name="programmingLanguage"
                         required
                         onChange={formik.handleChange}
-                        checked={formik.values.programmingLanguage === 'GraphicDesign'}
-                        value="GraphicDesign"
+                        checked={formik.values.programmingLanguage === 'Qrafik Dizayn'}
+                        value="Qrafik Dizayn"
                       />
                       <label htmlFor="graphicDesign">Qrafik Dizayn</label>
                     </div>
