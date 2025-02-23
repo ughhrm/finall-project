@@ -28,7 +28,7 @@ const AdminLoginSection = () => {
 
       if (adminLogInThunk.fulfilled.match(action)) {
         resetForm();
-        navigate("/admin-panel")
+        navigate("/admin-notification")
       }
     },
   });

@@ -4,9 +4,9 @@ import { useDispatch, useSelector } from 'react-redux';
 import { deleteUserByAdminThunk, getAllUsersByAdminThunk, updateUserByAdmin } from '../../redux/slice/adminAuthSlice';
 import { MdDelete, MdModeEdit, MdSave, MdCancel } from "react-icons/md";
 
-const   AdminGetStudentSection = () => {
+const AdminGetStudentSection = () => {
   const dispatch = useDispatch();
-  const { adminAuth } = useSelector(state => state.adminAuth) || {}; // `undefined`-dan qorunmaq üçün
+  const { adminAuth } = useSelector(state => state.adminAuth) || {};
 
   useEffect(() => {
     dispatch(getAllUsersByAdminThunk());
@@ -48,9 +48,14 @@ const   AdminGetStudentSection = () => {
 
   return (
     <div className={styles.section}>
+
       <div className={styles.content}>
+        <h1>Tələbələr</h1>
+
         <div className={styles.searchBox}>
-          <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAOEAAADhCAMAAAAJbSJIAAAAkFBMVEX////u7u4AAADt7e0EBqtK6ivjYlQitfyYe1VLfWX0lmqk1oTV0LImrAmroEdNWBPWhJ/XoyasCf/XhP8BifWHlNmisscAAAAASUVORK5CYII=" alt="user Icon" />
+
+
+          <img src="https://png.pngtree.com/png-clipart/20190619/original/pngtree-student-glyph-black-icon-png-image_4008235.jpg" alt="" />
           <div className={styles.inputBox}>
             <input type="text" name="name" value={name} onChange={(e) => setName(e.target.value)} placeholder="Ad" />
             <input type="text" name="email" value={email} onChange={(e) => setEmail(e.target.value)} placeholder="E-poçt" />
@@ -89,10 +94,10 @@ const   AdminGetStudentSection = () => {
                     <td>
                       {editingId === user._id ? (
                         <input
-                        type="date"
-                        value={editedData.dateOfBirth ? new Date(editedData.dateOfBirth).toISOString().split('T')[0] : ''} 
-                        onChange={(e) => handleChange(e, 'dateOfBirth')}
-                      />
+                          type="date"
+                          value={editedData.dateOfBirth ? new Date(editedData.dateOfBirth).toISOString().split('T')[0] : ''}
+                          onChange={(e) => handleChange(e, 'dateOfBirth')}
+                        />
                       ) : user.dateOfBirth ? new Date(user.dateOfBirth).toISOString().split('T')[0] : ''}
                     </td>
                     <td>
@@ -116,18 +121,18 @@ const   AdminGetStudentSection = () => {
                       ) : user.programmingLanguage}
                     </td>
                     <td>
-                    <div className={styles.buttons}>
-                      {editingId === user._id ? (
-                        <>
-                          <button onClick={handleSave}><MdSave /></button>
-                          <button onClick={handleCancel}><MdCancel /></button>
-                        </>
-                      ) : (
-                        <>
-                          <button onClick={() => dispatch(deleteUserByAdminThunk(user._id))}><MdDelete /></button>
-                          <button onClick={() => handleEdit(user)}><MdModeEdit /></button>
-                        </>
-                      )}
+                      <div className={styles.buttons}>
+                        {editingId === user._id ? (
+                          <>
+                            <button onClick={handleSave}><MdSave /></button>
+                            <button onClick={handleCancel}><MdCancel /></button>
+                          </>
+                        ) : (
+                          <>
+                            <button onClick={() => dispatch(deleteUserByAdminThunk(user._id))}><MdDelete /></button>
+                            <button onClick={() => handleEdit(user)}><MdModeEdit /></button>
+                          </>
+                        )}
                       </div>
                     </td>
 

@@ -49,6 +49,7 @@ const AdminGetUserSection = () => {
   return (
     <div className={styles.section}>
       <div className={styles.content}>
+      <h1>Müəllimlər</h1>
         <div className={styles.searchBox}>
           <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTZGtnERe-XiD68WXngZD9CcwvougwN8X0yaQ&s" alt="User Icon" />
           <div className={styles.inputBox}>

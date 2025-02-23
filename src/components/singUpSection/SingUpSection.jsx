@@ -1,14 +1,13 @@
 import styles from './SingUpSection.module.scss'
 import { useFormik } from 'formik';
-import { useNavigate } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect, useState } from 'react';
 import { resetError, signUpStudentandTeacherByAdminThunk } from '../../redux/slice/adminAuthSlice';
+import { showSuccessAlert } from '../../alert';
 
 
 const SingUpSection = () => {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [success, setSuccess] =useState("")
   const { error, loading } = useSelector((state) => state.adminAuth);
 
@@ -26,7 +25,7 @@ const SingUpSection = () => {
     onSubmit: async (values) => {
       const action = await dispatch(signUpStudentandTeacherByAdminThunk(values));
       if (signUpStudentandTeacherByAdminThunk.fulfilled.match(action)) {
-        setSuccess("Istifadeci  ugurla yaradildi")
+        showSuccessAlert("Istifadeci uğurla yaradildi!");
       }
     },
   });
@@ -42,7 +41,7 @@ const SingUpSection = () => {
     <div className={`${styles.section} column`}>
       <div className={`${styles.content} column-bet`}>
         <form className={`${styles.form} column-bet`} onSubmit={formik.handleSubmit}>
-          <h4>Qeydiyattan kec</h4>
+          <h4>İstifadəçi əlavə et</h4>
           {error && <p style={{ color: 'red' }}>{error}</p>}
           {success && <p style={{ color: 'green' }}>{success}</p>}
 
@@ -74,7 +73,7 @@ const SingUpSection = () => {
               </div>
               <div className={`${styles.inputBox} ${styles.radio} column`}>
                 <label htmlFor="role">Yeni istifadəçi rolu:</label>
-                <div className={`${styles.radioImputBigBox} ${styles.role} row-bet`}>
+                <div className={`${styles.radio} ${styles.role} row-bet`}>
 
                   <div className={`${styles.radioImput} row`}>
                     <input
@@ -289,7 +288,7 @@ const SingUpSection = () => {
           </div>
 
           <button type="submit" disabled={loading}>
-            {loading ? 'Yüklənir...' : 'Qeydiyyatdan kec'}
+            {loading ? 'Yüklənir...' : 'Əlavə et'}
           </button>
         </form>
 

@@ -6,6 +6,8 @@ import { useFormik } from 'formik';
 import { FaEye } from "react-icons/fa";
 import { IoIosEyeOff } from "react-icons/io";
 import { adminSignUpThunk, resetError } from '../../redux/slice/adminAuthSlice';
+import { showSuccessAlert } from '../../alert';
+
 
 
 
@@ -32,6 +34,8 @@ const AdminSignupSection = () => {
               const action = await dispatch(adminSignUpThunk(values));
                   if (adminSignUpThunk.fulfilled.match(action)) {
                     resetForm();
+                    showSuccessAlert("Admin Ugurla Yaradildi")
+                    
                     navigate("/admin-login")
 
                   }
@@ -129,8 +133,8 @@ const AdminSignupSection = () => {
                                         required
                                     />
                                     <button
-                                        onMouseDown={() => setShowSecretSignup(true)}  // Basanda açılır
-                                        onMouseUp={() => setShowSecretSignup(false)}  // Buraxanda bağlanır
+                                        onMouseDown={() => setShowSecretSignup(true)} 
+                                        onMouseUp={() => setShowSecretSignup(false)} 
                                         onMouseLeave={() => setShowSecretSignup(false)}            >
                                         {showSecretSignup ? <IoIosEyeOff /> : <FaEye />}
                                     </button>
@@ -152,8 +156,8 @@ const AdminSignupSection = () => {
                                     />
                                     <button
 
-                                        onMouseDown={() => setShowPassword(true)}  // Basanda açılır
-                                        onMouseUp={() => setShowPassword(false)}  // Buraxanda bağlanır
+                                        onMouseDown={() => setShowPassword(true)}  
+                                        onMouseUp={() => setShowPassword(false)}  
                                         onMouseLeave={() => setShowPassword(false)}            >
                                         {showPassword ? <IoIosEyeOff /> : <FaEye />}
                                     </button>

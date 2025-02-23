@@ -5,7 +5,6 @@ import Notifications from '../pages/Notifications'
 import AdminPanel from '../pages/AdminPanel'
 import StudentProfile from '../pages/StudentProfile'
 import LoginPage from '../pages/LoginPage'
-import SingUp from '../pages/SingUp'
 import AdminLogin from '../pages/AdminLogin'
 import AdminSignup from '../pages/AdminSignup'
 import UserSignUpByAdminPage from '../pages/UserSignUpByAdminPage'
@@ -19,6 +18,9 @@ import StudentAttendancePage from '../pages/StudentAttendancePage'
 import ChangePasswordPage from '../pages/ChangePasswordPage'
 import NotFoundPage from '../pages/NotFoundPage'
 import NotificationSendPage from '../pages/NotificationSendPage'
+import TeacherEvaluationPage from '../pages/TeacherEvaluationPage'
+import TeacherAttendancePage from '../pages/TeacherAttendancePage'
+import AdminNotificationPage from '../pages/AdminNotificationPage'
 
 const Router = () => {
     return (
@@ -42,7 +44,10 @@ const Router = () => {
       <Route path='/change-password' element={<ChangePasswordPage/>}/>
       <Route path='*' element={<NotFoundPage/>}/>
       <Route path='/notification-send' element={<NotificationSendPage/>}/>
-      <Route path='/notification-send' element={<NotificationSendPage/>}/>
+      <Route path='/admin-notification' element={<AdminNotificationPage/>}/>
+      <Route path='/teacher-evaluation' element={<TeacherEvaluationPage/>}/>
+      <Route path='/teacher-attendance' element={<TeacherAttendancePage/>}/>
+
   </Routes>
   </BrowserRouter>
     )

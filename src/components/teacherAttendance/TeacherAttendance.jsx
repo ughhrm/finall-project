@@ -1,20 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styles from "./EvaluationSection.module.scss";
+import styles from "./TeacherAttendance.module.scss";
 import { getStudentsByClass } from "../../redux/slice/adminAuthSlice";
-import { getEvaluationsByGroupThunk, updateEvaluationThunk, createEvaluationThunk } from "../../redux/slice/evaluationSlice";
+import { getEvaluationsByGroupThunk, updateAttendanceThunk } from "../../redux/slice/evaluationSlice";
 import moment from "moment";
 import { MdModeEdit, MdSave, MdOutlineCancel } from "react-icons/md";
 
-const EvaluationSection = () => {
+const TeacherAttendance = () => {
   const dispatch = useDispatch();
   const { adminAuth, loading, error } = useSelector((state) => state.adminAuth);
   const { evaluations, loading: evalLoading, error: evalError } = useSelector((state) => state.evaluations);
 
   const [selectedClass, setSelectedClass] = useState(null);
-  const [editableScore, setEditableScore] = useState({});
-  const [editedScores, setEditedScores] = useState({});
-  const [newDate, setNewDate] = useState("");
+  const [editableAttendance, setEditableAttendance] = useState({});
+  const [editedAttendances, setEditedAttendances] = useState({});
 
   useEffect(() => {
     dispatch(getStudentsByClass());
@@ -34,46 +33,46 @@ const EvaluationSection = () => {
   const groupedEvaluations = evaluations.reduce((acc, evalData) => {
     const studentId = evalData.studentId?._id;
     if (!acc[studentId]) {
-      acc[studentId] = { studentId: evalData.studentId, scores: {} };
+      acc[studentId] = { studentId: evalData.studentId, attendances: {}, absenceCount: 0 };
     }
-    acc[studentId].scores[moment.utc(evalData.gradeDate).local().add(1, 'day').format("YYYY-MM-DD")] = {
-      score: evalData.score, id: evalData._id
-    };
+    const dateKey = moment.utc(evalData.gradeDate).local().add(1, 'day').format("YYYY-MM-DD");
+    acc[studentId].attendances[dateKey] = { attendance: evalData.attendance, id: evalData._id };
+
+    if (evalData.attendance !== 0) {
+      acc[studentId].absenceCount += evalData.attendance;
+    }
+
     return acc;
   }, {});
 
   const handleEdit = (studentId, date) => {
-    setEditableScore({ studentId, date });
-    setEditedScores({ ...editedScores, [`${studentId}-${date}`]: groupedEvaluations[studentId]?.scores[date]?.score || "" });
+    setEditableAttendance({ studentId, date });
+    setEditedAttendances({ ...editedAttendances, [`${studentId}-${date}`]: groupedEvaluations[studentId]?.attendances[date]?.attendance || "" });
+  };
+
+  const handleChange = (e, studentId, date) => {
+    setEditedAttendances({ ...editedAttendances, [`${studentId}-${date}`]: e.target.value });
   };
 
   const handleSave = (studentId, date) => {
-    const evaluation = groupedEvaluations[studentId]?.scores[date];
+    const evaluation = groupedEvaluations[studentId]?.attendances[date];
     if (!evaluation || !evaluation.id) return;
-
-    dispatch(updateEvaluationThunk({ id: evaluation.id, data: { score: Number(editedScores[`${studentId}-${date}`]) } }));
-    setEditableScore({});
+    dispatch(updateAttendanceThunk({ id: evaluation.id, data: { attendance: editedAttendances[`${studentId}-${date}`] } }));
+    setEditableAttendance({});
   };
 
   const handleCancel = () => {
-    setEditableScore({});
-    setEditedScores({});
-  };
-
-  const handleAddDay = () => {
-    if (!selectedClass || !newDate) return;
-    dispatch(createEvaluationThunk({ group: selectedClass, gradeDate: newDate }))
-      .then(() => dispatch(getEvaluationsByGroupThunk(selectedClass))); 
-    setNewDate("");
+    setEditableAttendance({});
+    setEditedAttendances({});
   };
 
   return (
     <div className={styles.section}>
-      <h2 className={styles.title}>Qiymətləndirmə Cədvəli</h2>
+      <h2 className={styles.title}>Yoxlama Cədvəli</h2>
       <div className={styles.classList}>
-        {Object.keys(adminAuth).map((className) => (
+        {Object.keys(adminAuth).map((className, index) => (
           <button
-            key={className}
+            key={`class-${index}`}
             onClick={() => setSelectedClass(className)}
             className={selectedClass === className ? styles.active : styles.classButton}
           >
@@ -85,16 +84,6 @@ const EvaluationSection = () => {
       {selectedClass && (
         <div className={styles.tableBox}>
           <h3 className={styles.classTitle}>Qrup: {selectedClass}</h3>
-          <div className={styles.addDayContainer}>
-            <input
-              type="date"
-              value={newDate}
-              onChange={(e) => setNewDate(e.target.value)}
-            />
-            <button className={styles.addDayButton} onClick={handleAddDay}>
-              Yeni Gün Əlavə Et
-            </button>
-          </div>
           <table>
             <thead>
               <tr>
@@ -103,22 +92,23 @@ const EvaluationSection = () => {
                 {formattedDates.map(date => (
                   <th key={date}>{moment(date, "YYYY-MM-DD").format("DD MMM YYYY")}</th>
                 ))}
+                <th>Ümumi Qayıb</th>
               </tr>
             </thead>
             <tbody>
               {Object.values(groupedEvaluations).length > 0 ? (
-                Object.values(groupedEvaluations).map(({ studentId, scores }) => (
+                Object.values(groupedEvaluations).map(({ studentId, attendances, absenceCount }) => (
                   <tr key={studentId._id}>
                     <td>{studentId?.name}</td>
                     <td>{studentId?.lastName}</td>
                     {formattedDates.map(date => (
-                      <td key={date} className={styles.scoreCell}>
-                        {editableScore.studentId === studentId._id && editableScore.date === date ? (
+                      <td key={`${studentId._id}-${date}`} className={styles.scoreCell}>
+                        {editableAttendance.studentId === studentId._id && editableAttendance.date === date ? (
                           <div>
                             <input
                               type="number"
-                              value={editedScores[`${studentId._id}-${date}`] || ""}
-                              onChange={(e) => setEditedScores({ ...editedScores, [`${studentId._id}-${date}`]: e.target.value })}
+                              value={editedAttendances[`${studentId._id}-${date}`] || ""}
+                              onChange={(e) => handleChange(e, studentId._id, date)}
                               autoFocus
                             />
                             <button className={styles.saveBtn} onClick={() => handleSave(studentId._id, date)}>
@@ -130,16 +120,19 @@ const EvaluationSection = () => {
                           </div>
                         ) : (
                           <span onClick={() => handleEdit(studentId._id, date)}>
-                            {scores[date]?.score || "-"} <MdModeEdit className={styles.editIcon} />
+                            {attendances[date]?.attendance || "-"} <MdModeEdit className={styles.editIcon} />
                           </span>
                         )}
                       </td>
                     ))}
+                    <td className={`${styles.absenceCell} ${absenceCount >= 13 && absenceCount < 17 ? styles.yellowCell : ""} ${absenceCount >= 17 && absenceCount <= 20 ? styles.redCell : ""}`}>
+                      {absenceCount}
+                    </td>               
                   </tr>
                 ))
               ) : (
                 <tr>
-                  <td colSpan={formattedDates.length + 2}>Bu sinif və tarix üçün qiymətləndirmə tapılmadı</td>
+                  <td colSpan={formattedDates.length + 3}>Bu sinif və tarix üçün yoxlama tapılmadı</td>
                 </tr>
               )}
             </tbody>
@@ -150,4 +143,4 @@ const EvaluationSection = () => {
   );
 };
 
-export default EvaluationSection;
+export default TeacherAttendance;

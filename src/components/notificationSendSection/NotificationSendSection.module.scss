@@ -1,28 +1,25 @@
-.section {
+.section{
     width: 100%;
-    height: 89vh;
+    height: 100vh;
     background-color: #d3dae0;
-    .content {
-        background-color: white;
+
+    .content{
         width: 1100px;
-        height: 80vh;
+        height: 90vh;
         justify-content: space-around;
+        background-color: #fff;
         border-radius: 15px;
+        
 
-
-        .form {
-            h4 {
+        .form{
+            h4{
                 text-align: center;
-                width: 60%;
                 font-weight: 500;
                 font-size: 25px;
-                line-height: 1.5;
             }
-
-            width: 95%;
-            height: 68vh;
-
-            button {
+            width: 90%;
+            height: 75%;
+            button{
                 border: none;
                 background-color: #00427C;
                 width: 200px;
@@ -30,152 +27,236 @@
                 border-radius: 30px;
                 color: #fff;
             }
-
-            .bigBox {
+           
+            .bigBox{
                 width: 80%;
                 height: 250px;
-
-                .leftBox {
+                .leftBox{
                     height: 100%;
                     width: 45%;
                     gap: 10px;
-
-                    .radio {
+                    .radio{
                         gap: 5px;
                     }
 
-                    .inputBox {
+                    .inputBox{
                         align-items: start;
                         width: 100%;
-                        gap: 8px;
+                         .passwordInputBox{
+                    width: 100%;
+                    height: 40px;
+                        button{
+                            border: none;
+                        width: 30px;
+                        background-color: transparent;
+                        height: 30px;
+                        margin-right: 10px;
 
-                        .passwordInputBox {
-                            width: 100%;
-                            height: 40px;
+                    }
+                    input{
+                        width: 86%;
 
-                            button {
-                                border: none;
-                                width: 30px;
-                                background-color: transparent;
-                                height: 30px;
-                                margin-right: 10px;
-
-                            }
-
-                            input {
-                                width: 86%;
-
-                            }
-                        }
-                       
-
-                        .radioImputBigBox {
-                            width: 100%;
-
-                            .radioImputMiddleBox {
-                                gap: 5px;
-                                width: 32%;
-
-                                .radioImput {
-                                    width: 100%;
-                                    gap: 3px;
-
-                                    input {
-                                        width: 15%;
-                                    }
-
-                                    label {
-                                        width: 85%;
-                                        font-size: 15px;
-                                    }
-
+                    }
+                }
+                      .radioImputBigBox{
+                        width: 100%;
+                        .radioImputMiddleBox{
+                            gap: 5px;
+                            width: 32%;
+                            .radioImput{
+                                width: 100%;
+                                gap: 3px;
+                                input{
+                                    width: 15%;
                                 }
+                                label{
+                                    width: 85%;
+                                    font-size: 15px;
+                                }
+
                             }
-
                         }
-                        .role{
-                            width: 50%;
-
-                            
-                        }
-
-
-                        a {
-                            color: gray;
-                            text-decoration: none;
-                            font-size: 14px;
-
-                            &:hover {
+                      }
+                       
+                          
+                            a {
+                              color: gray;
+                              text-decoration: none;
+                              font-size: 14px;
+                              
+                              &:hover {
                                 text-decoration: underline;
+                              }
                             }
-                        }
-
-                        input {
+                          
+                        input{
                             width: 100%;
                             border: none;
                             border-bottom: 1px solid rgb(212, 211, 211);
-                            height: 25px;
-                            outline: none;
+                           height: 25px;
+                           outline: none;
                         }
                     }
 
 
 
-
+                    
                 }
-
-                .rightBox {
+                .rightBox{
                     height: 100%;
                     width: 45%;
                     gap: 5px;
-
-                    .inputBox {
-                        gap: 8px;
-                        .passwordInputBox {
+                    .inputBox{
+                        .passwordInputBox{
                             width: 100%;
                             height: 40px;
-
-                            button {
-                                border: none;
+                                button{
+                                    border: none;
                                 width: 30px;
                                 background-color: transparent;
                                 height: 30px;
                                 margin-right: 10px;
                                 color: black;
-
+        
                             }
-
-                            input {
+                            input{
                                 width: 86%;
-
+        
                             }
                         }
-
                         align-items: start;
                         width: 100%;
-
-                        input {
+                       
+                        input{
                             width: 100%;
                             border: none;
                             border-bottom: 1px solid rgb(212, 211, 211);
-                            height: 30px;
-                            outline: none;
+                           height: 30px;
+                           outline: none;
                         }
                     }
                 }
             }
-
+          
         }
-
+       
     }
 }
 
 @media screen and (max-width: 450px) {
-    .section {
+    .section{
         width: 100%;
-
-        .content {
+        height: auto;
+        height: 120vh;
+        .content{
             width: 90%;
+            height: auto;
+            height: 100vh;
+
+            .form{
+                height: 85%;
+                width: 90%;
+                flex-direction: column;
+                gap: 10px;
+
+
+                .bigBox{
+                    flex-direction: column;
+                    width: 90%;
+                    height: auto;
+                    gap: 10px;
+
+                    .leftBox{
+                        gap: 10px;
+
+                        height: auto;
+                        width: 100%;
+
+                        .inputBox{
+                            height: auto;
+                            width: 100%;
+                            input{
+                                width: 100%;
+                            }
+                        }
+
+                    }
+                    .rightBox{
+                        gap: 10px;
+                        width: 100%;
+                        height: auto;
+                        .inputBox{  
+                            height: auto;
+                            width: 100%;
+                            input{
+                                width: 100%;
+                            }
+                        }
+                    }
+                    
+                }
+
+            }
+
+        }
+    }
+
+}
+
+@media screen and (min-width: 450px) and (max-width: 1110px) {
+    .section{
+        width: 100%;
+        height: auto;
+        height: 120vh;
+        .content{
+            width: 90%;
+            height: auto;
+            height: 100vh;
+
+            .form{
+                height: 85%;
+                width: 90%;
+                flex-direction: column;
+                gap: 10px;
+
+
+                .bigBox{
+                    flex-direction: column;
+                    width: 90%;
+                    height: auto;
+                    gap: 10px;
+
+                    .leftBox{
+                        gap: 10px;
+
+                        height: auto;
+                        width: 100%;
+
+                        .inputBox{
+                            height: auto;
+                            width: 100%;
+                            input{
+                                width: 100%;
+                            }
+                        }
+
+                    }
+                    .rightBox{
+                        gap: 10px;
+                        width: 100%;
+                        height: auto;
+                        .inputBox{  
+                            height: auto;
+                            width: 100%;
+                            input{
+                                width: 100%;
+                            }
+                        }
+                    }
+                    
+                }
+
+            }
 
         }
     }

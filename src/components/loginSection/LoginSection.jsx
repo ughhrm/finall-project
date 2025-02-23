@@ -22,11 +22,17 @@ const LoginSection = () => {
     onSubmit: async (values, { resetForm }) => {
       const action = await dispatch(userAuthLoginThunk(values));
 
-      if (userAuthLoginThunk.fulfilled.match(action)) {
-        resetForm();
-        navigate("/student-profile")
-      }
+if (userAuthLoginThunk.fulfilled.match(action)) {
+    resetForm();
+    const userRole = action.payload?.user?.role; 
 
+    if (userRole === "user") {
+        navigate("/student-profile");
+    } else if (userRole === "teacher") {
+        navigate("/teacher-evaluation");
+    }
+}
+      
     },
   });
 

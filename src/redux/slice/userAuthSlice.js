@@ -62,6 +62,7 @@ export const getUserAuthThunk = createAsyncThunk("user/get", async ( thunkAPI) =
         console.log(res.data)
         return res.data;
         
+        
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response?.data?.message || "İstifadəçi məlumatı əldə olunmadı.");
     }

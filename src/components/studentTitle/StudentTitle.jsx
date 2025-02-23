@@ -1,21 +1,21 @@
-import React from 'react';
-import styles from './StudentTitle.module.scss';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from "react";
+import styles from "./StudentTitle.module.scss";
+import { useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { useDispatch } from 'react-redux';
-import { userAuthLogOutThunk } from '../../redux/slice/userAuthSlice';
+import { useDispatch } from "react-redux";
+import { userAuthLogOutThunk } from "../../redux/slice/userAuthSlice";
 
 const StudentTitle = () => {
     const navigate = useNavigate();
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const [menuOpen, setMenuOpen] = useState(false);
 
     const handleLogout = async () => {
-        const action = await dispatch(userAuthLogOutThunk())
+        const action = await dispatch(userAuthLogOutThunk());
         if (userAuthLogOutThunk.fulfilled.match(action)) {
-          navigate('/')
+            navigate("/");
         }
-      }
-    
+    };
 
     return (
         <div className={`${styles.header} row`}>
@@ -23,27 +23,17 @@ const StudentTitle = () => {
                 <div className={`${styles.logoBox} row`}>
                     <h3>Alpha Academy</h3>
                 </div>
-                <div className={`${styles.btnBox} row-bet`}>
-                
-                    <div className={styles.dropdown}>
-                        <button onClick={() => navigate("/student-profile")}>Telebe Profili</button>
 
-                    </div>
-                    <div className={styles.dropdown}>
-                        <button onClick={() => navigate("/student-attendance")}>Grouplar</button>
-
-                    </div>
-
-                    <div className={`${styles.dropdown} ${styles.logout}`}>
-                    <button onClick={handleLogout}>Log out</button>
-
-                    </div>
-                    
-
-
+                <div className={`${styles.btnBox} row-bet ${menuOpen ? styles.open : ""}`}>
+                    <button onClick={() => navigate("/student-profile")}>Tələbə Profili</button>
+                    <button onClick={() => navigate("/student-attendance")}>Qiymetler</button>
+                    <button onClick={handleLogout} className={styles.logout}>Çıxış</button>
                 </div>
+
                 <div className={`${styles.hamburgerMenu} row`}>
-                    <button><GiHamburgerMenu /></button>
+                    <button onClick={() => setMenuOpen(!menuOpen)}>
+                        <GiHamburgerMenu />
+                    </button>
                 </div>
             </div>
         </div>

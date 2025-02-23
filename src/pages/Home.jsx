@@ -12,6 +12,8 @@ import EmptySection from '../components/emptySection/EmptySection'
 import SmalHeader from '../components/smallHeader/SmalHeader'
 
 const Home = () => {
+ 
+
   return (
     <div>
       <SmalHeader/>
@@ -24,7 +26,6 @@ const Home = () => {
         <SuccessMetrics/>
         <CareerDestinations/>
         <Address/>
-         
         <Footer/>
      
         

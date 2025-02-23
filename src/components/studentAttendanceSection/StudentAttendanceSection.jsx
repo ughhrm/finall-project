@@ -1,41 +1,39 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styles from "./StudentAttendanceSection.module.scss";
-import { getEvaluationsByGroupforStudentThunk } from "../../redux/slice/evaluationSlice";
+import { getStudentEvaluationsThunk } from "../../redux/slice/evaluationSlice";
 import moment from "moment";
+import styles from "./StudentAttendanceSection.module.scss";
+import { getUserAuthThunk } from "../../redux/slice/userAuthSlice";
 
 const StudentAttendanceSection = () => {
   const dispatch = useDispatch();
   const { evaluations, loading, error } = useSelector((state) => state.evaluations);
-  const { userAuth } = useSelector(state => state.userAuth);
+  const { userAuth } = useSelector((state) => state.userAuth);
 
   useEffect(() => {
-    if (userAuth?._id) {
-      dispatch(getEvaluationsByGroupforStudentThunk(userAuth._id));
+    dispatch(getUserAuthThunk());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (userAuth && userAuth._id) {
+      dispatch(getStudentEvaluationsThunk(userAuth._id));
     }
   }, [userAuth, dispatch]);
 
-  if (loading) return <p>Yüklənir...</p>;
+  if (loading) return <p className={styles.loadingText}>Yüklənir...</p>;
   if (error) return <p>Xəta: {error?.message}</p>;
 
-  const formattedDates = [...new Set(evaluations.map(e => moment.utc(e.gradeDate).local().add(1, 'day').format("YYYY-MM-DD")))];
-  
-  const groupedEvaluations = evaluations.reduce((acc, evalData) => {
-    const dateKey = moment.utc(evalData.gradeDate).local().add(1, 'day').format("YYYY-MM-DD");
-    acc[dateKey] = { 
-      attendance: evalData.attendance, 
-      score: evalData.score 
-    };
-    return acc;
-  }, {});
+  const evaluationList = evaluations?.evaluations ?? [];
 
-  const totalAbsences = Object.values(groupedEvaluations).reduce((sum, val) => sum + (val.attendance || 0), 0);
-  const totalScores = Object.values(groupedEvaluations).reduce((sum, val) => sum + (val.score || 0), 0);
-  const averageScore = Object.keys(groupedEvaluations).length > 0 ? (totalScores / Object.keys(groupedEvaluations).length).toFixed(2) : "-";
+  const totalAttendance = evaluationList.reduce((sum, evalData) => sum + (evalData.attendance || 0), 0);
+  const averageScore = evaluationList.length > 0
+    ? (evaluationList.reduce((sum, evalData) => sum + (evalData.score || 0), 0) / evaluationList.length).toFixed(2)
+    : "-";
 
   return (
     <div className={styles.section}>
       <h2 className={styles.title}>Mənim Qayıblarım və Qiymətlərim</h2>
+
       <table className={styles.table}>
         <thead>
           <tr>
@@ -45,12 +43,12 @@ const StudentAttendanceSection = () => {
           </tr>
         </thead>
         <tbody>
-          {formattedDates.length > 0 ? (
-            formattedDates.map(date => (
-              <tr key={date}>
-                <td>{moment(date, "YYYY-MM-DD").format("DD MMM YYYY")}</td>
-                <td>{groupedEvaluations[date]?.attendance ?? "-"}</td>
-                <td>{groupedEvaluations[date]?.score ?? "-"}</td>
+          {evaluationList.length > 0 ? (
+            evaluationList.map((evalData) => (
+              <tr key={evalData._id}>
+                <td>{moment(evalData.gradeDate).format("DD MMM YYYY")}</td>
+                <td>{evalData.attendance ?? "-"}</td>
+                <td>{evalData.score ?? "-"}</td>
               </tr>
             ))
           ) : (
@@ -59,16 +57,19 @@ const StudentAttendanceSection = () => {
             </tr>
           )}
         </tbody>
-        <tfoot>
-          <tr>
-            <td><b>Ümumi Qayıb</b></td>
-            <td className={`${styles.absenceCell} ${totalAbsences >= 13 && totalAbsences < 17 ? styles.yellowCell : ""} ${totalAbsences >= 17 && totalAbsences <= 20 ? styles.redCell : ""}`}>
-              {totalAbsences}
-            </td>
-            <td><b>Orta Qiymət:</b> {averageScore}</td>
-          </tr>
-        </tfoot>
       </table>
+
+      <div className={styles.summary}>
+        <table className={styles.table}>
+         
+          <tbody>
+            <tr>
+              <td>Cemi qayib: {totalAttendance}</td>
+              <td>Orta qiymet: {averageScore}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 };

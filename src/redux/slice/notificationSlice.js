@@ -16,13 +16,39 @@ export const getAllNotifications = createAsyncThunk(
     "/getAllNotifications",
     async ( thunkAPI) => {
       try {
-        const res = await axios.get("http://localhost:5050/notification/all-notifications");
+
+        const token = localStorage.getItem("token");
+
+        const res = await axios.get("http://localhost:5050/notification/all-notifications",{
+          headers: {
+            Authorization: `Bearer ${token}`, 
+          }
+        });
         return res.data;
       } catch (error) {
         return thunkAPI.rejectWithValue(error.response.data);
       }
     }
   )
+
+  export const deleteNotification = createAsyncThunk(
+    "/deleteNotification",
+    async (id, { rejectWithValue }) => {
+        try {
+          const token = localStorage.getItem("token");
+
+            await axios.delete(`http://localhost:5050/notification/delete/${id}`,{
+              headers: {
+                Authorization: `Bearer ${token}`, 
+              }
+            });
+            return id;
+        } catch (error) {
+            return rejectWithValue(error.response.data);
+        }
+    }
+);
+
 
 
 const notificationSlice = createSlice({
@@ -59,7 +85,10 @@ const notificationSlice = createSlice({
               .addCase(getAllNotifications.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload;
-              });
+              })
+              .addCase(deleteNotification.fulfilled, (state, action) => {
+                state.notifications = state.notifications.filter((item) => item._id !== action.payload);
+            });
     },
 });
 

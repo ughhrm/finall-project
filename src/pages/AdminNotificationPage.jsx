@@ -1,11 +1,13 @@
 import React from 'react'
-import AdminNotificationSection from '../components/adminNotificationSection/AdminNotificationSection'
+import AdminHeader from '../components/adminHeader/AdminHeader'
+import AdminNotifications from '../components/adminNotificationSection/AdminNotifications'
 
 const AdminNotificationPage = () => {
   return (
     <div>
-        <AdminNotificationSection/>
-        
+      <AdminHeader />
+      <AdminNotifications/>
+
     </div>
   )
 }

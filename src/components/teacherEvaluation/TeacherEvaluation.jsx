@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import styles from "./EvaluationSection.module.scss";
+import styles from "./TeacherEvaluation.module.scss";
 import { getStudentsByClass } from "../../redux/slice/adminAuthSlice";
 import { getEvaluationsByGroupThunk, updateEvaluationThunk, createEvaluationThunk } from "../../redux/slice/evaluationSlice";
 import moment from "moment";
 import { MdModeEdit, MdSave, MdOutlineCancel } from "react-icons/md";
 
-const EvaluationSection = () => {
+const TeacherEvaluation = () => {
   const dispatch = useDispatch();
   const { adminAuth, loading, error } = useSelector((state) => state.adminAuth);
   const { evaluations, loading: evalLoading, error: evalError } = useSelector((state) => state.evaluations);
@@ -150,4 +150,4 @@ const EvaluationSection = () => {
   );
 };
 
-export default EvaluationSection;
+export default TeacherEvaluation;

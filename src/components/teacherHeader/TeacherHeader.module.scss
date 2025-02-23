@@ -1,0 +1,107 @@
+.header {
+    width: 100%;
+    background-color: #00427C;
+    height: 11vh;
+    top: 0px;
+    position: sticky;
+    margin-bottom: 20px;
+
+    .content {
+        width: 90%;
+        color: white;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+
+        .logoBox {
+            gap: 15px;
+
+            h3 {
+                font-family: "Cinzel Decorative", serif;
+            }
+        }
+
+        .btnBox {
+            width: 450px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            .logout{
+                background-color: #D5447B;
+                height: 40px;
+                width: 200px;
+                border-radius: 20px;
+            }
+
+            button {
+                padding: 10px;
+                background-color: transparent;
+                color: white;
+                border: none;
+                font-size: 17px;
+                cursor: pointer;
+                transition: all 0.6s ease;
+            }
+
+            .logout {
+                button {
+                    background-color: #D5447B;
+                    border: none;
+                    padding: 5px;
+                    border-radius: 20px;
+                    width: 80px;
+                    transition: all 0.6s ease;
+                    
+                    &:hover {
+                        box-shadow: 0 0 10px;
+                    }
+                }
+            }
+        }
+
+        .hamburgerMenu {
+            display: none;
+        }
+    }
+}
+
+@media (max-width: 768px) {
+    .header {
+        .content {
+            .btnBox {
+                display: none;
+            }
+
+            .mobileMenu {
+                display: flex !important;
+                flex-direction: column;
+                position: absolute;
+                top: 11vh;
+                right: 0;
+                width: 100%;
+                background-color: #00427C;
+                text-align: center;
+                padding: 10px;
+                box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+
+                button {
+                    padding: 15px;
+                    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+                    width: 100%;
+                }
+            }
+        }
+
+        .hamburgerMenu {
+            display: flex !important;
+
+            button {
+                background-color: transparent;
+                border: none;
+                color: white;
+                font-size: 25px;
+                cursor: pointer;
+            }
+        }
+    }
+}

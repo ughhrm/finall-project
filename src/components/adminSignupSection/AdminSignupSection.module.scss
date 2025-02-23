@@ -145,8 +145,117 @@
 @media screen and (max-width: 450px) {
     .section{
         width: 100%;
+        height: auto;
+        height: 120vh;
         .content{
             width: 90%;
+            height: auto;
+            height: 100vh;
+
+            .form{
+                height: 85%;
+                width: 90%;
+                flex-direction: column;
+                gap: 10px;
+
+
+                .bigBox{
+                    flex-direction: column;
+                    width: 90%;
+                    height: auto;
+                    gap: 10px;
+
+                    .leftBox{
+                        gap: 10px;
+
+                        height: auto;
+                        width: 100%;
+
+                        .inputBox{
+                            height: auto;
+                            width: 100%;
+                            input{
+                                width: 100%;
+                            }
+                        }
+
+                    }
+                    .rightBox{
+                        gap: 10px;
+                        width: 100%;
+                        height: auto;
+                        .inputBox{  
+                            height: auto;
+                            width: 100%;
+                            input{
+                                width: 100%;
+                            }
+                        }
+                    }
+                    
+                }
+
+            }
+
+        }
+    }
+
+}
+
+@media screen and (min-width: 450px) and (max-width: 800px) {
+    .section{
+        width: 100%;
+        height: auto;
+        height: 120vh;
+        .content{
+            width: 90%;
+            height: auto;
+            height: 100vh;
+
+            .form{
+                height: 85%;
+                width: 90%;
+                flex-direction: column;
+                gap: 10px;
+
+
+                .bigBox{
+                    flex-direction: column;
+                    width: 90%;
+                    height: auto;
+                    gap: 10px;
+
+                    .leftBox{
+                        gap: 10px;
+
+                        height: auto;
+                        width: 100%;
+
+                        .inputBox{
+                            height: auto;
+                            width: 100%;
+                            input{
+                                width: 100%;
+                            }
+                        }
+
+                    }
+                    .rightBox{
+                        gap: 10px;
+                        width: 100%;
+                        height: auto;
+                        .inputBox{  
+                            height: auto;
+                            width: 100%;
+                            input{
+                                width: 100%;
+                            }
+                        }
+                    }
+                    
+                }
+
+            }
 
         }
     }
