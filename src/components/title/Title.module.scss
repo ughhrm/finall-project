@@ -1,11 +1,31 @@
 .section{
     height: 20vh;
     align-items: end;
+    
     p{
+        text-align: center;
         padding: 20px 0;
         font-size: 40px;
         font-weight: 500;
+        color: white;
     }
 
 
+
+}
+@media (max-width: 480px) {
+    .section{
+        p{
+            font-size: 28px;
+            width: 95%;
+        }
+    }
+
+}
+@media screen and (min-width: 480px) and (max-width: 860px) {
+    .section{
+        p{
+            width: 95%;
+        }
+    }
 }
